@@ -1,4 +1,5 @@
 package default_package;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,6 +23,7 @@ public class MainClass implements ActionListener {
 		frame.setTitle("Tetris");
 		frame.add(panel);
 		frame.setSize(framewidth, frameheight);
+		frame.setBackground(Color.BLACK);
 		t.start();
 	}
 public static void main(String[] args) {
