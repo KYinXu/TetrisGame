@@ -8,6 +8,8 @@ public class Grid {
 	int yposition = 0;
 
 	public void drawGrid(Graphics g) {
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, 500, 1000);
 		g.setColor(Color.BLUE);
 		for(int z = 0; z < 11; z++) {
 			g.fillRect(xposition, 0, 1, 750);

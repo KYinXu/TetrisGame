@@ -12,29 +12,35 @@ public class LineBlock extends Object {
 	public LineBlock(int GridX, int GridY) {
 		super(GridX, GridY);
 		fallspeed = 1;
+		x=GridX;
+		y=GridY;
 	}
 
 	ArrayList<LineBlock> Line = new ArrayList();
 
 	void addBlock(LineBlock l) {
-		l = new LineBlock(0, 0);
+		l = new LineBlock(x, y);
 		Line.add(l);
 	}
 
 	void generatePiece(Graphics g) {
 		for (int i = 0; i < 4; i++) {
 			Line.get(i).draw(g);
-			addBlock(l);
+
+			
 		}
 	}
 
 	void update() {
-
+		y=y+1;
+		removeLine();
 	}
 
 	void draw(Graphics g) {
 		g.setColor(Color.CYAN);
-		g.drawRect(x, y, 30, 30);
+		g.drawRect(x*30, y*30, 30, 30);
 	}
-
+void removeLine() {
+	Line.clear();
+}
 }
