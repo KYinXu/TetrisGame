@@ -15,8 +15,9 @@ public class LineBlock extends Object {
 		x=GridX;
 		y=GridY;
 	}
+	ArrayList<LineBlock> Line = new ArrayList<LineBlock>();
+	
 
-	ArrayList<LineBlock> Line = new ArrayList();
 
 	void addBlock(LineBlock l) {
 		l = new LineBlock(x, y);
@@ -41,6 +42,7 @@ public class LineBlock extends Object {
 		g.drawRect(x*30, y*30, 30, 30);
 	}
 void removeLine() {
-	Line.clear();
+Line.clear();
 }
+
 }
