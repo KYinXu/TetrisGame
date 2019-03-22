@@ -10,6 +10,7 @@ public ObjectManager() {
 	BlockType = new Random().nextInt(6);
 	BlockType=0;
 	if(BlockType == 0) {
+		
 	}
 }
 }

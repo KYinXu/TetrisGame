@@ -11,50 +11,52 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener{
 	long updateTimer=0;
-	int TimeToUpdate = 50;
+	int TimeToUpdate = 100;
 	ArrayList<Object> InactiveObjects = new ArrayList<Object>();
-	Object object = new Object(0, 0);
-	Object old = new Object(0, 0);
+	Object object = new Object(2, 0);
+	Object old;
 	Grid grid;
 	ObjectManager manager = new ObjectManager();
 	Timer t = new Timer(1000/60, this);
 public GamePanel() {
+	t.start();
 	object.isLine();
 	grid = new Grid();
-	t.start();
+	object.oldlist.add(100);
 }
 public void paintComponent(Graphics g) {
+
 	grid.drawGrid(g);
 	if(manager.BlockType==0) {
 		for(int i=0;i<4;i++) {
 			object.line.x++;
 			object.line.addBlock(object.line.l);
 		}
+
+		object.line.generatePiece(g);
+		object.line.x-=4;
 	}
-	object.line.x-=4;
-	object.line.generatePiece(g);
+
+	CheckObjects(g);
 	if(object.isActive==false) {
-		old.isActive=false;
+		old = new Object(object.line.x, object.y);
+		old.x=object.line.x+1;
+		old.y=object.line.y;
 		old.isLine();
-		old.y=22;
-		old.x=object.x;
 		InactiveObjects.add(old);
-		for(int i=0;i<InactiveObjects.size();i++) {
-			for(int z=0;z<4;z++){
-			InactiveObjects.get(i).line.addBlock(InactiveObjects.get(i).line.l);
-			InactiveObjects.get(i).line.x++;
-			}
-			InactiveObjects.get(i).line.generatePiece(getGraphics());
-		}
-		InactiveObjects.get(0).line.generatePiece(g);
 		object.resetBlock();
 		object.isActive=true;
-		for(int i=0;i<4;i++) {
-			object.line.addBlock(object.line.l);
-			object.line.x++;
+		object.oldlist.add(old.y-1);
+		System.out.println("added");
+	}
+}
+public void CheckObjects(Graphics g) {
+	for(int i=0;i<InactiveObjects.size();i++) {
+		for(int z=0;z<4;z++){
+		InactiveObjects.get(i).line.addBlock(InactiveObjects.get(i).line.l);
+		InactiveObjects.get(i).line.x++;
 		}
-		object.line.x-=4;
-		object.line.generatePiece(g);
+		InactiveObjects.get(i).line.generatePiece(g);
 	}
 }
 @Override
@@ -62,7 +64,6 @@ public void actionPerformed(ActionEvent e) {
 	if(object.isActive==true) {
 		if(System.currentTimeMillis()-updateTimer>TimeToUpdate) {
 			object.update();
-
 			updateTimer=System.currentTimeMillis();
 			repaint();
 

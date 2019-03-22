@@ -7,11 +7,10 @@ public class Object {
 	int x = 2;
 	int y;
 	int fallspeed = 1;
+	ArrayList<Integer> oldlist = new ArrayList<Integer>();
 	LineBlock line;
 	boolean isActive = true;
 	Object currentObject;
-	ArrayList<Integer> recordX = new ArrayList<Integer>();
-	ArrayList<Integer> recordY = new ArrayList<Integer>();
 	ObjectManager manager = new ObjectManager();
 	public Object(int GridX, int GridY) {
 	}
@@ -21,14 +20,20 @@ public class Object {
 
 	}
 	void resetBlock() {
-		line.x=2;
+		x=3;
 		line.y=0;
 	}
 	void update() {
-		if(y>=22) {
-			isActive=false;
+		for(int i=0;i<oldlist.size();i++) {
+			System.out.println(oldlist.get(i));
+			if(y==22 || y==oldlist.get(i)) {
+
+				isActive=false;
+				break;
+		}	
+
 		}
-		
+	
 		x = line.x;
 		y = line.y;
 		line.update();
