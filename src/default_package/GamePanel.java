@@ -20,55 +20,56 @@ public class GamePanel extends JPanel implements ActionListener{
 	Timer t = new Timer(1000/60, this);
 public GamePanel() {
 	t.start();
-	object.isLine();
+	if(manager.BlockType==0) {
+		object.isLine();	
+	}
+
 	grid = new Grid();
-	object.oldlist.add(100);
 }
 public void paintComponent(Graphics g) {
 
 	grid.drawGrid(g);
+		StartBlock(g);
+	grid.update(g, object);
+	CheckObjects(g);
+
+}
+public void CheckObjects(Graphics g) {
+
+		if(object.isActive==false) {
+			grid.update(g, object);
+			object.resetBlock();
+
+		
+	}
+}
+public void StartBlock(Graphics g) {
 	if(manager.BlockType==0) {
+
 		for(int i=0;i<4;i++) {
 			object.line.x++;
 			object.line.addBlock(object.line.l);
 		}
+		ShowBlock(g);
 
-		object.line.generatePiece(g);
-		object.line.x-=4;
-	}
-
-	CheckObjects(g);
-	if(object.isActive==false) {
-		old = new Object(object.line.x, object.y);
-		old.x=object.line.x+1;
-		old.y=object.line.y;
-		old.isLine();
-		InactiveObjects.add(old);
-		object.resetBlock();
-		object.isActive=true;
-		object.oldlist.add(old.y-1);
-		System.out.println("added");
 	}
 }
-public void CheckObjects(Graphics g) {
-	for(int i=0;i<InactiveObjects.size();i++) {
-		for(int z=0;z<4;z++){
-		InactiveObjects.get(i).line.addBlock(InactiveObjects.get(i).line.l);
-		InactiveObjects.get(i).line.x++;
-		}
-		InactiveObjects.get(i).line.generatePiece(g);
-	}
+public void ShowBlock(Graphics g) {
+	object.line.generatePiece(g);
+	object.line.x-=4;
 }
 @Override
 public void actionPerformed(ActionEvent e) {
-	if(object.isActive==true) {
 		if(System.currentTimeMillis()-updateTimer>TimeToUpdate) {
-			object.update();
-			updateTimer=System.currentTimeMillis();
-			repaint();
+			if(object.isActive==true) {
+				object.update();
+				updateTimer=System.currentTimeMillis();
+				repaint();	
+			}
+
 
 		}
 	}
 	// TODO Auto-generated method stub
 }
-}
+

@@ -7,7 +7,6 @@ public class Object {
 	int x = 2;
 	int y;
 	int fallspeed = 1;
-	ArrayList<Integer> oldlist = new ArrayList<Integer>();
 	LineBlock line;
 	boolean isActive = true;
 	Object currentObject;
@@ -21,21 +20,20 @@ public class Object {
 	}
 	void resetBlock() {
 		x=3;
-		line.y=0;
+		y=0;
+		x=line.x;
+		y=line.y;
 	}
 	void update() {
-		for(int i=0;i<oldlist.size();i++) {
-			System.out.println(oldlist.get(i));
-			if(y==22 || y==oldlist.get(i)) {
-
+			if(y==23) {
 				isActive=false;
-				break;
 		}	
 
-		}
 	
 		x = line.x;
 		y = line.y;
+		if(isActive==true) {
 		line.update();
+		}
 	}
 }
