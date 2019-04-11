@@ -12,7 +12,6 @@ public class MainClass implements ActionListener {
 	JFrame frame;
 	GamePanel panel;
 	Timer t = new Timer(1000 / 60, this);
-	Grid grid = new Grid();
 	final int framewidth = 500;
 	final int frameheight = 1000;
 	void setup() {

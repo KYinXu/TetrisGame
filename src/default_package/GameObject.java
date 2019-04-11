@@ -3,18 +3,20 @@ package default_package;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class Object {
+public class GameObject {
 	int x = 2;
-
+	int x2 = 3;
+	int x3 = 4;
+	int x4 = 5;
 	int y;
 	int fallspeed = 1;
 	LineBlock line;
-	Grid grid = new Grid();
+	
 	boolean isActive = true;
-	Object currentObject;
+	GameObject currentObject;
 	ObjectManager manager = new ObjectManager();
 
-	public Object(int GridX, int GridY) {
+	public GameObject(int GridX, int GridY) {
 	}
 
 	void isLine() {
@@ -24,22 +26,19 @@ public class Object {
 
 	void resetBlock() {
 		line.x = 2;
+		x2 = 3;
+		x3 = 4;
+		x4 = 5;
 		line.y = 0;
 		isActive = true;
 	}
 
-	void update() {
-		for(int i=0;i<grid.FilledY.size();i++) {
-			if(line.y*30>=grid.FilledY.get(i).yposition-30) {
-				isActive=false;
-				break;
-			}
-		}
-		
-		if (y == 23) {
+	void update(Grid grid) {
+		if (y+1 == 24|| grid.FilledBlock[x][y+1].isFilled==true) {
 			isActive = false;
 		}
-		
+		line.x=x;
+		line.y=y;
 		x=line.x;
 		y=line.y;
 

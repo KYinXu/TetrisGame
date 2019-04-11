@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class LineBlock extends Object {
+public class LineBlock extends GameObject {
 	int x;
 	int y;
 	LineBlock l;
