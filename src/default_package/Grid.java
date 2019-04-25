@@ -7,14 +7,15 @@ import java.util.ArrayList;
 public class Grid {
 	int xposition;
 	int yposition;
-	GridSquare[][] FilledBlock = new GridSquare[26][11];
+	GridSquare[][] FilledBlock = new GridSquare[27][11];
 
 	public void createGrid(Graphics g) {
 		for (int i = 0; i < FilledBlock.length; i++) {
 			for (int j = 0; j < FilledBlock[i].length; j++) {
 				FilledBlock[i][j] = new GridSquare();
-				FilledBlock[i][j].xposition=j+1;
-				FilledBlock[i][j].yposition=i+1;
+				FilledBlock[i][j].xposition=j;
+				FilledBlock[i][j].yposition=i;
+				System.out.println(i + "," + j);
 			}
 		}
 
@@ -37,11 +38,13 @@ public class Grid {
 			yposition += 30;
 
 		}
+		xposition=0;
 		yposition = 0;
 	}
 
 	public void update(Graphics g, GameObject object) {	
 		DrawFilled(g);
+		if(object.isActive==false) {
 		for (int i = 0; i < FilledBlock.length; i++) {
 			for (int j = 0; j < FilledBlock[i].length; j++) {
 				if (FilledBlock[i][j].xposition == object.x && FilledBlock[i][j].yposition == object.y) {
@@ -52,13 +55,14 @@ public class Grid {
 			}
 		}
 	}
+	}
 
 	public void DrawFilled(Graphics g) {
 		for (int i = 0; i < FilledBlock.length; i++) {
 			for (int j = 0; j < FilledBlock[i].length; j++) {
 				if (FilledBlock[i][j].isFilled == true) {
 					for(int d = 1; d<5;d++) {
-						g.drawRect((FilledBlock[i][j].xposition+d) * 30, FilledBlock[i][j].yposition * 30, 30, 30);
+						g.drawRect(((FilledBlock[i][j].xposition+d) * 30), (FilledBlock[i][j].yposition * 30), 30, 30);
 					}
 				}
 			}

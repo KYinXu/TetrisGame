@@ -20,6 +20,7 @@ public class LineBlock extends GameObject {
 
 
 	void addBlock(LineBlock l) {
+		
 		l = new LineBlock(x, y);
 		Line.add(l);
 	}
@@ -30,6 +31,7 @@ public class LineBlock extends GameObject {
 
 			
 		}
+		x-=4;
 	}
 
 	void update() {
@@ -39,7 +41,7 @@ public class LineBlock extends GameObject {
 
 	void draw(Graphics g) {
 		g.setColor(Color.CYAN);
-		g.drawRect(x*30, y*30, 30, 30);
+		g.drawRect((x*30), (y*30), 30, 30);
 	}
 void removeLine() {
 Line.clear();

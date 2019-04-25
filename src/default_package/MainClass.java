@@ -21,6 +21,7 @@ public class MainClass implements ActionListener {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setTitle("Tetris");
 		frame.add(panel);
+		frame.addKeyListener(panel);
 		frame.setSize(framewidth, frameheight);
 		frame.setBackground(Color.BLACK);
 		t.start();

@@ -4,10 +4,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class GameObject {
-	int x = 2;
-	int x2 = 3;
-	int x3 = 4;
-	int x4 = 5;
+	boolean left = false;
+	boolean right = false;
+	int x = 0;
+	int x2 = x+1;
+	int x3 = x+2;
+	int x4 = x+3;
 	int y;
 	int fallspeed = 1;
 	LineBlock line;
@@ -17,33 +19,47 @@ public class GameObject {
 	ObjectManager manager = new ObjectManager();
 
 	public GameObject(int GridX, int GridY) {
+		x=GridX-1;
+		y=GridY;
+
 	}
 
 	void isLine() {
-		line = new LineBlock(x, y);
+		line = new LineBlock(x,y);
+		line.x-=1;
+		line.y-=1;
 
 	}
 
 	void resetBlock() {
 		line.x = 2;
-		x2 = 3;
-		x3 = 4;
-		x4 = 5;
 		line.y = 0;
 		isActive = true;
 	}
 
 	void update(Grid grid) {
-		if (y+1 == 24|| grid.FilledBlock[x][y+1].isFilled==true) {
-			isActive = false;
+		if(left == true && x>=0) {
+			line.x-=1;
 		}
-		line.x=x;
-		line.y=y;
+		if(right == true && x4<=9) {
+			line.x+=1;
+		}
 		x=line.x;
 		y=line.y;
+		x2 = x+1;
+		x3 = x+2;
+		x4 = x+3;
+		for(int i=0;i<line.Line.size();i++) {
+		if (y == 24 || grid.FilledBlock[line.Line.get(i).y+1][x].isFilled==true) {
+			isActive = false;
+			break;
+		}
+		
 
+		}
 		if (isActive == true) {
 			line.update();
 		}
+
 	}
 }
