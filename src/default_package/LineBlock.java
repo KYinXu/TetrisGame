@@ -8,12 +8,13 @@ public class LineBlock extends GameObject {
 	int x;
 	int y;
 	LineBlock l;
-
-	public LineBlock(int GridX, int GridY) {
+	Grid grid;
+	public LineBlock(int GridX, int GridY, Grid grid) {
 		super(GridX, GridY);
 		fallspeed = 1;
 		x=GridX;
 		y=GridY;
+		this.grid=grid;
 	}
 	ArrayList<LineBlock> Line = new ArrayList<LineBlock>();
 	
@@ -21,10 +22,10 @@ public class LineBlock extends GameObject {
 
 	void addBlock(LineBlock l) {
 		
-		l = new LineBlock(x, y);
+		l = new LineBlock(x, y, grid);
+		l.x--;
 		Line.add(l);
 	}
-
 	void generatePiece(Graphics g) {
 		for (int i = 0; i < 4; i++) {
 			Line.get(i).draw(g);
@@ -35,6 +36,11 @@ public class LineBlock extends GameObject {
 	}
 
 	void update() {
+		for(int i=0;i<4;i++) {
+		if(grid.FilledBlock[y+1][x+i].isFilled==true) {
+			isActive=false;
+		}
+		}
 		y=y+1;
 		removeLine();
 	}

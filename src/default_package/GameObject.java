@@ -13,7 +13,7 @@ public class GameObject {
 	int y;
 	int fallspeed = 1;
 	LineBlock line;
-	
+	Grid grid;
 	boolean isActive = true;
 	GameObject currentObject;
 	ObjectManager manager = new ObjectManager();
@@ -25,23 +25,23 @@ public class GameObject {
 	}
 
 	void isLine() {
-		line = new LineBlock(x,y);
+		line = new LineBlock(x,y, grid);
 		line.x-=1;
 		line.y-=1;
 
 	}
 
 	void resetBlock() {
-		line.x = 2;
+		line.x = 3;
 		line.y = 0;
 		isActive = true;
 	}
 
 	void update(Grid grid) {
-		if(left == true && x>=0) {
+		if(left == true && x>=1) {
 			line.x-=1;
 		}
-		if(right == true && x4<=9) {
+		if(right == true && x4<=8) {
 			line.x+=1;
 		}
 		x=line.x;
@@ -49,13 +49,13 @@ public class GameObject {
 		x2 = x+1;
 		x3 = x+2;
 		x4 = x+3;
+		System.out.println(line.Line.size());
 		for(int i=0;i<line.Line.size();i++) {
-		if (y == 24 || grid.FilledBlock[line.Line.get(i).y+1][x].isFilled==true) {
+			
+		if (y == 24 || grid.FilledBlock[line.Line.get(i).y+1][line.Line.get(i).x].isFilled==true) {
 			isActive = false;
 			break;
 		}
-		
-
 		}
 		if (isActive == true) {
 			line.update();

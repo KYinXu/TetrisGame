@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	long updateTimer = 0;
-	int TimeToUpdate = 100;
+	int TimeToUpdate = 50;
 	ArrayList<GameObject> InactiveObjects = new ArrayList<GameObject>();
 	GameObject object;
 	Grid grid;
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public GamePanel() {
 		t.start();
 		if (manager.BlockType == 0) {
-			object = new GameObject(4, 0);
+			object = new GameObject(5, 0);
 			object.isLine();
 		}
 
@@ -40,6 +40,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	public void CheckObjects(Graphics g) {
 		grid.DrawFilled(g);
+		if(object.isActive==false && object.y<=0) {
+//game over
+		}
 		if (object.isActive == false) {
 			grid.update(g, object);
 			object.resetBlock();
@@ -53,6 +56,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			for (int i = 0; i < 4; i++) {
 				object.line.x++;
 				object.line.addBlock(object.line.l);
+
 			}
 			object.line.generatePiece(g);
 
@@ -63,12 +67,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (System.currentTimeMillis() - updateTimer > TimeToUpdate) {
 			if (object.isActive == true) {
 				object.update(grid);
 				updateTimer = System.currentTimeMillis();
 				repaint();
 			}
+
 
 		}
 	}

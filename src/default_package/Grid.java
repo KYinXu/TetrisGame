@@ -15,7 +15,6 @@ public class Grid {
 				FilledBlock[i][j] = new GridSquare();
 				FilledBlock[i][j].xposition=j;
 				FilledBlock[i][j].yposition=i;
-				System.out.println(i + "," + j);
 			}
 		}
 
@@ -48,7 +47,6 @@ public class Grid {
 		for (int i = 0; i < FilledBlock.length; i++) {
 			for (int j = 0; j < FilledBlock[i].length; j++) {
 				if (FilledBlock[i][j].xposition == object.x && FilledBlock[i][j].yposition == object.y) {
-					System.out.println("work");
 					FilledBlock[i][j].isFilled = true;
 					break;
 				}
@@ -61,7 +59,7 @@ public class Grid {
 		for (int i = 0; i < FilledBlock.length; i++) {
 			for (int j = 0; j < FilledBlock[i].length; j++) {
 				if (FilledBlock[i][j].isFilled == true) {
-					for(int d = 1; d<5;d++) {
+					for(int d = 0; d<4;d++) {
 						g.drawRect(((FilledBlock[i][j].xposition+d) * 30), (FilledBlock[i][j].yposition * 30), 30, 30);
 					}
 				}
