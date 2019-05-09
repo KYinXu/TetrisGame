@@ -8,10 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class MainClass implements ActionListener {
+public class MainClass {
 	JFrame frame;
 	GamePanel panel;
-	Timer t = new Timer(1000 / 60, this);
 	final int framewidth = 500;
 	final int frameheight = 1000;
 	void setup() {
@@ -24,17 +23,12 @@ public class MainClass implements ActionListener {
 		frame.addKeyListener(panel);
 		frame.setSize(framewidth, frameheight);
 		frame.setBackground(Color.BLACK);
-		t.start();
 	}
 public static void main(String[] args) {
 	MainClass m = new MainClass();
 	m.setup();
 }
-@Override
-public void actionPerformed(ActionEvent e) {
-	// TODO Auto-generated method stub
-	
-}
+
 
 
 }

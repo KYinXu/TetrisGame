@@ -14,52 +14,48 @@ import javax.swing.JPanel;
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	long updateTimer = 0;
 	int TimeToUpdate = 50;
-	ArrayList<GameObject> InactiveObjects = new ArrayList<GameObject>();
 	GameObject object;
+	LineBlock line;
 	Grid grid;
 	ObjectManager manager = new ObjectManager();
 	Timer t = new Timer(1000 / 60, this);
 
 	public GamePanel() {
-		t.start();
+		
 		if (manager.BlockType == 0) {
-			object = new GameObject(5, 0);
-			object.isLine();
+			line = new LineBlock(4, 0, grid);
+			line.isActive=true;
+			
 		}
 
 		grid = new Grid();
 		grid.createGrid(getGraphics());
+		
+		t.start();
 	}
 
 	public void paintComponent(Graphics g) {
 
 		grid.drawGrid(g);
-		StartBlock(g);
+		CreateObject(g);
 		CheckObjects(g);
 	}
 
 	public void CheckObjects(Graphics g) {
 		grid.DrawFilled(g);
-		if(object.isActive==false && object.y<=0) {
+		if(line.isActive==false && line.y<=0) {
 //game over
 		}
-		if (object.isActive == false) {
-			grid.update(g, object);
-			object.resetBlock();
+		if (line.isActive == false) {
+			grid.update(g, line);
+			line.resetBlock();
 
 		}
 	}
 
-	public void StartBlock(Graphics g) {
+	public void CreateObject(Graphics g) {
 		if (manager.BlockType == 0) {
-
-			for (int i = 0; i < 4; i++) {
-				object.line.x++;
-				object.line.addBlock(object.line.l);
-
-			}
-			object.line.generatePiece(g);
-
+			line.createblock(line, g);
 		}
 	}
 
@@ -69,8 +65,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (System.currentTimeMillis() - updateTimer > TimeToUpdate) {
-			if (object.isActive == true) {
-				object.update(grid);
+			if (line.isActive == true) {
+				line.update(grid);
 				updateTimer = System.currentTimeMillis();
 				repaint();
 			}
@@ -90,10 +86,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-			object.left=true;
+			line.left=true;
 		}
 		else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			object.right=true;
+			line.right=true;
 		}
 	}
 
@@ -101,9 +97,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			object.left=false;
+			line.left=false;
 		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			object.right=false;
+			line.right=false;
 		}
 	}
 }

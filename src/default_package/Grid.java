@@ -41,12 +41,12 @@ public class Grid {
 		yposition = 0;
 	}
 
-	public void update(Graphics g, GameObject object) {	
+	public void update(Graphics g, LineBlock line) {	
 		DrawFilled(g);
-		if(object.isActive==false) {
+		if(line.isActive==false) {
 		for (int i = 0; i < FilledBlock.length; i++) {
 			for (int j = 0; j < FilledBlock[i].length; j++) {
-				if (FilledBlock[i][j].xposition == object.x && FilledBlock[i][j].yposition == object.y) {
+				if (FilledBlock[i][j].xposition == line.x && FilledBlock[i][j].yposition == line.y) {
 					FilledBlock[i][j].isFilled = true;
 					break;
 				}
