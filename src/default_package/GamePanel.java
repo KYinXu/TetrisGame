@@ -35,10 +35,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		
 			if (object.isActive == true) {
-				object.update();
+				object.update("down");
 			
 			}
 			else {
+				for(int i=0;i<4;i++) {
+					grid.grid[object.xPos[i]][object.yPos[i]]=true;
+				}
 				int r = new Random().nextInt(2);
 				if(r==0) {
 					object = new LineBlock(grid);
@@ -67,7 +70,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			object.moveRight();
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
-			object.update();
+			object.update("down");
 		}
 		repaint();
 	}

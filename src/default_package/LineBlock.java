@@ -14,6 +14,7 @@ public class LineBlock extends GameObject {
 		for(int i = 0; i < 4; i++) {
 			xPos[i] = 3 + i;
 			yPos[i] = 0;
+
 			grid.grid[xPos[i]][yPos[i]] = true;
 		}
 	}
