@@ -1,5 +1,4 @@
 package default_package;
 
-public class ZBlock {
-
+public class ZBlock{
 }
