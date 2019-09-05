@@ -31,11 +31,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+				object.update("check");
 
 		
 			if (object.isActive == true) {
 				object.update("down");
+				object.update("check");
 			
 			}
 			else {
@@ -63,11 +64,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		object.update("check");
 		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT && object.canMoveLeft == true) {
+			object.update("check");
+			if(object.canMoveLeft == true) {
 			object.moveLeft();
-		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			}
+		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && object.canMoveRight == true) {
+			object.update("check");
+			if(object.canMoveRight == true) {
 			object.moveRight();
+			}
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 			object.update("down");

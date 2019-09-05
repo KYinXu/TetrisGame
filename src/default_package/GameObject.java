@@ -19,8 +19,9 @@ public class GameObject {
 	//
 	//
 	public void moveLeft() {
+		update("check");
 		update("left");
-		if (canMoveLeft == true) {
+		if (canMoveRight == true && grid.grid[xPos[0] - 1][yPos[0]] == false && grid.grid[xPos[0] - 1][yPos[1]] == false && grid.grid[xPos[0] - 1][yPos[2]] == false && grid.grid[xPos[0] - 1][yPos[3]] == false) {
 			for (int i = 0; i < 4; i++) {
 				if (xPos[i] <= 0) {
 					return;
@@ -37,20 +38,23 @@ public class GameObject {
 	//
 	//
 	public void moveRight() {
+		update("check");
 		update("right");
-		if (canMoveRight == true) {
-			for (int i = 0; i < 4; i++) {
-				if (xPos[i] == grid.width - 1) {
-					return;
+			if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[0]] == false && grid.grid[xPos[3] + 1][yPos[1]] == false && grid.grid[xPos[3] + 1][yPos[2]] == false && grid.grid[xPos[3] + 1][yPos[3]] == false ) {
+				for (int i = 0; i < 4; i++) {
+					if (xPos[i] == grid.width - 1) {
+						return;
+					}
 				}
-			}
-			for (int i = 3; i >= 0; i--) {
-				grid.grid[xPos[i]][yPos[i]] = false;
-				xPos[i]++;
-				grid.grid[xPos[i]][yPos[i]] = true;
-			}
+				for (int i = 3; i >= 0; i--) {
+					grid.grid[xPos[i]][yPos[i]] = false;
+					xPos[i]++;
+					grid.grid[xPos[i]][yPos[i]] = true;
+				}
+			}	
 		}
-	}
+
+	
 
 	//
 	//
@@ -75,7 +79,53 @@ public class GameObject {
 	//
 	//
 	void update(String direction) {
+		System.out.println(xPos[0]);
+			if (direction.equalsIgnoreCase("check")) {
+				for (int i = 0; i < 4; i++) {
+					if (xPos[3] <= 8 && xPos[0] >= 1) {
+					if(canMoveLeft==true && grid.grid[xPos[0] - 1][yPos[i]]) {
+						canMoveLeft = false;
+					}
+					else {
+						canMoveLeft=true;
+					}
+					}
+					if (xPos[3] <= 8 && xPos[0] >= 2) {
+					if(canMoveRight==true && grid.grid[xPos[3] + 1][yPos[i]]) {
+						canMoveRight = false;
+					}
+					else {
+						canMoveRight = true;
+					}
+					}
+				}
+				
+				
+			}
+		for (int i = 0; i < 4; i++) {
+			if (direction.equalsIgnoreCase("right")) {
+				if (xPos[3] <= 8 && xPos[0] >= 2) {
+					if (grid.grid[xPos[3] + 1][yPos[i]]) {
+						canMoveRight = false;
+						break;
+					}
+					// start here, checking left and right movement
 
+				}
+
+			}
+			if (direction.equalsIgnoreCase("left")) {
+				if (xPos[3] <= 8 && xPos[0] >= 2) {
+					if (grid.grid[xPos[0] - 1][yPos[i]]) {
+						canMoveLeft = false;
+						break;
+					}
+					// start here, checking left and right movement
+
+				}
+
+			}
+		}
 		boolean canMoveDown = true;
 
 		for (int i = 0; i < 4; i++) {
@@ -106,31 +156,23 @@ public class GameObject {
 			}
 
 		}
-		for (int i = 0; i < 4; i++) {
-			if (direction.equalsIgnoreCase("right")) {
-				if (xPos[3] <= 8 && xPos[0] >= 2) {
-					if (grid.grid[xPos[3] + 1][yPos[i]]) {
-						canMoveRight = false;
-					}
-					// start here, checking left and right movement
 
-				}
-
-			}
-			if (direction.equalsIgnoreCase("left")) {
-				if (xPos[3] <= 8 && xPos[0] >= 2) {
-					if (grid.grid[xPos[0] - 1][yPos[i]]) {
-						canMoveLeft = false;
-					}
-					// start here, checking left and right movement
-
-				}
-
-			}
-		}
 		if (direction.equalsIgnoreCase("down")) {
 			if (canMoveDown) {
 				moveDown();
+				for (int i = 0; i < 4; i++) {
+					if (xPos[3] <= 8 && xPos[0] >= 2) {
+					if(canMoveLeft==true && grid.grid[xPos[0] - 1][yPos[i]]) {
+						canMoveLeft = false;
+					}
+					}
+					if (xPos[3] <= 8 && xPos[0] >= 2) {
+					if(canMoveRight==true && grid.grid[xPos[3] + 1][yPos[i]]) {
+						canMoveRight = false;
+					}
+					}
+				}
+				
 			} else {
 				isActive = false;
 			}
