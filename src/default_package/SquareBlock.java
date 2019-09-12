@@ -15,5 +15,5 @@ public class SquareBlock extends GameObject{
 		for(int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;
 		}
-	}
-}
+	} // //
+}    //   

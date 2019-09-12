@@ -43,12 +43,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for(int i=0;i<4;i++) {
 					grid.grid[object.xPos[i]][object.yPos[i]]=true;
 				}
-				int r = new Random().nextInt(2);
+				int r = new Random().nextInt(4);
 				if(r==0) {
 					object = new LineBlock(grid);
+					object.currentState = "line";
 				}
 				else if(r==1) {
 					object = new SquareBlock(grid);
+					object.currentState = "square";
+				}
+				else if(r==2) {
+					object = new SBlock(grid);
+					object.currentState = "s";
+				}
+				else if(r==3) {
+					object = new ZBlock(grid);
+					object.currentState = "z";
 				}
 			}
 				repaint();
