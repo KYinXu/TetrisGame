@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int TimeToUpdate = 1;
 	GameObject object;
 	Grid grid;
-	Timer t = new Timer(1000 / 3, this);
+	Timer t = new Timer(500 / 3, this);
 
 	public GamePanel() {
 		t.start();
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for(int i=0;i<4;i++) {
 					grid.grid[object.xPos[i]][object.yPos[i]]=true;
 				}
-				int r = new Random().nextInt(4);
+				int r = new Random().nextInt(7);
 				if(r==0) {
 					object = new LineBlock(grid);
 					object.currentState = "line";
@@ -59,6 +59,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				else if(r==3) {
 					object = new ZBlock(grid);
 					object.currentState = "z";
+				}
+				else if(r==4) {
+					object = new JBlock(grid);
+					object.currentState = "j";
+				}
+				else if(r==5) {
+					object = new LBlock(grid);
+					object.currentState = "l";
+				}
+				else if(r==6) {
+					object = new TBlock(grid);
+					object.currentState = "t";
 				}
 			}
 				repaint();
