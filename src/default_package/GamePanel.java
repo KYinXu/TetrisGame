@@ -102,6 +102,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		else if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 			object.update("down");
 		}
+		else if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+			object.update("space");
+		}
 		repaint();
 	}
 

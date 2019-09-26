@@ -29,7 +29,7 @@ Grid(int w, int h) {
 			for(int z=0;z<height;z++) {
 				if(grid[i][z]) {
 					g.setColor(Color.CYAN);
-					g.drawRect(i*30, z*30, UnitSize, UnitSize);
+					g.fillRect(i*30+2, z*30+2, UnitSize-2, UnitSize-2);
 				}
 			}
 		}

@@ -22,51 +22,69 @@ public class GameObject {
 	public void moveLeft() {
 		update("check");
 		update("left");
-		if(xPos[0] >= 1) {
-		if(currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
+		if (xPos[0] >= 1) {
+			if (currentState.equalsIgnoreCase("t")) {
+				if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] == false
+						&& grid.grid[xPos[2] - 1][yPos[2]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] <= 0) {
+							return;
+						}
+					}
+					for (int i = 0; i < 4; i++) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]--;
+						grid.grid[xPos[i]][yPos[i]] = true;
+					}
+				}
+			}
+			if (currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
 
-		if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] == false && grid.grid[xPos[0] - 1][yPos[1]] == false
-				&& grid.grid[xPos[0] - 1][yPos[2]] == false && grid.grid[xPos[0] - 1][yPos[3]] == false) {
-			for (int i = 0; i < 4; i++) {
-				if (xPos[i] <= 0) {
-					return;
-				}
-			}
-			for (int i = 0; i < 4; i++) {
-				grid.grid[xPos[i]][yPos[i]] = false;
-				xPos[i]--;
-				grid.grid[xPos[i]][yPos[i]] = true;
-			}
-		}
-		}
-		if(currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
-			if(canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] == false && grid.grid[xPos[1] - 1][yPos[1]] == false) {
-				for (int i = 0; i < 4; i++) {
-					if (xPos[i] <= 0) {
-						return;
+				if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] == false
+						&& grid.grid[xPos[0] - 1][yPos[1]] == false && grid.grid[xPos[0] - 1][yPos[2]] == false
+						&& grid.grid[xPos[0] - 1][yPos[3]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] <= 0) {
+							return;
+						}
+					}
+					for (int i = 0; i < 4; i++) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]--;
+						grid.grid[xPos[i]][yPos[i]] = true;
 					}
 				}
-				for (int i = 0; i < 4; i++) {
-					grid.grid[xPos[i]][yPos[i]] = false;
-					xPos[i]--;
-					grid.grid[xPos[i]][yPos[i]] = true;
-				}
 			}
-		}
-		if(currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
-			if(canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] == false && grid.grid[xPos[2] - 1][yPos[2]] == false && grid.grid[xPos[1] - 1][yPos[1]] == false) {
-				for (int i = 0; i < 4; i++) {
-					if (xPos[i] <= 0) {
-						return;
+			if (currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
+				if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] == false
+						&& grid.grid[xPos[1] - 1][yPos[1]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] <= 0) {
+							return;
+						}
+					}
+					for (int i = 0; i < 4; i++) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]--;
+						grid.grid[xPos[i]][yPos[i]] = true;
 					}
 				}
-				for (int i = 0; i < 4; i++) {
-					grid.grid[xPos[i]][yPos[i]] = false;
-					xPos[i]--;
-					grid.grid[xPos[i]][yPos[i]] = true;
+			}
+			if (currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
+				if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] == false
+						&& grid.grid[xPos[2] - 1][yPos[2]] == false && grid.grid[xPos[1] - 1][yPos[1]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] <= 0) {
+							return;
+						}
+					}
+					for (int i = 0; i < 4; i++) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]--;
+						grid.grid[xPos[i]][yPos[i]] = true;
+					}
 				}
 			}
-		}
 		}
 	}
 
@@ -75,50 +93,68 @@ public class GameObject {
 	public void moveRight() {
 		update("check");
 		update("right");
-		if(xPos[3] <= 8) {
-		if(currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
-		if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[0]] == false && grid.grid[xPos[3] + 1][yPos[1]] == false
-				&& grid.grid[xPos[3] + 1][yPos[2]] == false && grid.grid[xPos[3] + 1][yPos[3]] == false) {
-			for (int i = 0; i < 4; i++) {
-				if (xPos[i] == grid.width - 1) {
-					return;
-				}
-			}
-			for (int i = 3; i >= 0; i--) {
-				grid.grid[xPos[i]][yPos[i]] = false;
-				xPos[i]++;
-				grid.grid[xPos[i]][yPos[i]] = true;
-			}
-		}
-		}
-		if(currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
-			if(canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]] == false && grid.grid[xPos[2] + 1][yPos[2]] == false) {
-				for (int i = 0; i < 4; i++) {
-					if (xPos[i] == grid.width - 1) {
-						return;
+		if (xPos[3] <= 8) {
+			if (currentState.equalsIgnoreCase("t")) {
+				if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]] == false
+						&& grid.grid[xPos[2] + 1][yPos[2]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] == grid.width - 1) {
+							return;
+						}
+					}
+					for (int i = 3; i >= 0; i--) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]++;
+						grid.grid[xPos[i]][yPos[i]] = true;
 					}
 				}
-				for (int i = 3; i >= 0; i--) {
-					grid.grid[xPos[i]][yPos[i]] = false;
-					xPos[i]++;
-					grid.grid[xPos[i]][yPos[i]] = true;
-				}
 			}
-		}
-		if(currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
-			if(canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]] == false && grid.grid[xPos[2] + 1][yPos[2]] == false && grid.grid[xPos[1] + 1][yPos[1]] == false) {
-				for (int i = 0; i < 4; i++) {
-					if (xPos[i] == grid.width - 1) {
-						return;
+			if (currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
+				if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[0]] == false
+						&& grid.grid[xPos[3] + 1][yPos[1]] == false && grid.grid[xPos[3] + 1][yPos[2]] == false
+						&& grid.grid[xPos[3] + 1][yPos[3]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] == grid.width - 1) {
+							return;
+						}
+					}
+					for (int i = 3; i >= 0; i--) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]++;
+						grid.grid[xPos[i]][yPos[i]] = true;
 					}
 				}
-				for (int i = 3; i >= 0; i--) {
-					grid.grid[xPos[i]][yPos[i]] = false;
-					xPos[i]++;
-					grid.grid[xPos[i]][yPos[i]] = true;
+			}
+			if (currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
+				if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]] == false
+						&& grid.grid[xPos[2] + 1][yPos[2]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] == grid.width - 1) {
+							return;
+						}
+					}
+					for (int i = 3; i >= 0; i--) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]++;
+						grid.grid[xPos[i]][yPos[i]] = true;
+					}
 				}
 			}
-		}
+			if (currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
+				if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]] == false
+						&& grid.grid[xPos[2] + 1][yPos[2]] == false && grid.grid[xPos[1] + 1][yPos[1]] == false) {
+					for (int i = 0; i < 4; i++) {
+						if (xPos[i] == grid.width - 1) {
+							return;
+						}
+					}
+					for (int i = 3; i >= 0; i--) {
+						grid.grid[xPos[i]][yPos[i]] = false;
+						xPos[i]++;
+						grid.grid[xPos[i]][yPos[i]] = true;
+					}
+				}
+			}
 		}
 	}
 
@@ -148,74 +184,98 @@ public class GameObject {
 		if (direction.equalsIgnoreCase("check")) {
 			for (int i = 0; i < 4; i++) {
 				if (xPos[3] <= 8 && xPos[0] >= 1) {
+					if (currentState.equalsIgnoreCase("t")) {
+						if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[2] - 1][yPos[2]]) {
+							canMoveLeft = false;
+						} else {
+							canMoveLeft = true;
+						}
+						if (xPos[3] <= 8 && xPos[0] >= 2) {
+							if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]]
+									&& grid.grid[xPos[1] + 1][yPos[1]]) {
+								canMoveRight = false;
+							} else {
+								canMoveRight = true;
+							}
+						}
+					}
 					if (currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
 						if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[i]]) {
 							canMoveLeft = false;
 						} else {
 							canMoveLeft = true;
 						}
-					
-					if (xPos[3] <= 8 && xPos[0] >= 2) {
-						if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[i]]) {
-							canMoveRight = false;
-						} else {
-							canMoveRight = true;
+
+						if (xPos[3] <= 8 && xPos[0] >= 2) {
+							if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[i]]) {
+								canMoveRight = false;
+							} else {
+								canMoveRight = true;
+							}
 						}
+
 					}
-						
-				}
-					if(currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
+					if (currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
 						if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[1] - 1][yPos[1]]) {
 							canMoveLeft = false;
 						} else {
 							canMoveLeft = true;
 						}
-					
-					if (xPos[3] <= 8 && xPos[0] >= 2) {
-						if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]] && grid.grid[xPos[2] + 1][yPos[2]]) {
-							canMoveRight = false;
-						} else {
-							canMoveRight = true;
+
+						if (xPos[3] <= 8 && xPos[0] >= 2) {
+							if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]]
+									&& grid.grid[xPos[2] + 1][yPos[2]]) {
+								canMoveRight = false;
+							} else {
+								canMoveRight = true;
+							}
 						}
 					}
-					}
-					if(currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
-						if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[1] - 1][yPos[1]] && grid.grid[xPos[2] - 1][yPos[2]]) {
+					if (currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
+						if (canMoveLeft == true && grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[1] - 1][yPos[1]]
+								&& grid.grid[xPos[2] - 1][yPos[2]]) {
 							canMoveLeft = false;
 						} else {
 							canMoveLeft = true;
 						}
-					
-					if (xPos[3] <= 8 && xPos[0] >= 2) {
-						if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]] && grid.grid[xPos[2] + 1][yPos[2]] && grid.grid[xPos[1] + 1][yPos[1]]) {
-							canMoveRight = false;
-						} else {
-							canMoveRight = true;
+
+						if (xPos[3] <= 8 && xPos[0] >= 2) {
+							if (canMoveRight == true && grid.grid[xPos[3] + 1][yPos[3]]
+									&& grid.grid[xPos[2] + 1][yPos[2]] && grid.grid[xPos[1] + 1][yPos[1]]) {
+								canMoveRight = false;
+							} else {
+								canMoveRight = true;
+							}
 						}
 					}
-					}
-			}
+				}
 
-		}
+			}
 		}
 		for (int i = 0; i < 4; i++) {
 			if (direction.equalsIgnoreCase("right")) {
 				if (xPos[3] <= 8 && xPos[0] >= 2) {
-					if(currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
-					if (grid.grid[xPos[3] + 1][yPos[i]]) {
-						canMoveRight = false;
-						break;
+					if (currentState.equalsIgnoreCase("t")) {
+						if (grid.grid[xPos[3] + 1][yPos[3]] && grid.grid[xPos[2] + 1][yPos[2]]) {
+							canMoveRight = false;
+						}
 					}
+					if (currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
+						if (grid.grid[xPos[3] + 1][yPos[i]]) {
+							canMoveRight = false;
+							break;
+						}
 					}
-					if(currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
-						if(grid.grid[xPos[3] + 1][yPos[3]] && grid.grid[xPos[2] + 1][yPos[2]]) {
+					if (currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
+						if (grid.grid[xPos[3] + 1][yPos[3]] && grid.grid[xPos[2] + 1][yPos[2]]) {
 							canMoveRight = false;
 						}
 					}
 					// start here, checking left and right movement
-					if(currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
-						if(grid.grid[xPos[3] + 1][yPos[3]] && grid.grid[xPos[2] + 1][yPos[2]] && grid.grid[xPos[1] + 1][yPos[1]]) {
-						canMoveRight = false;
+					if (currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
+						if (grid.grid[xPos[3] + 1][yPos[3]] && grid.grid[xPos[2] + 1][yPos[2]]
+								&& grid.grid[xPos[1] + 1][yPos[1]]) {
+							canMoveRight = false;
 						}
 					}
 				}
@@ -223,20 +283,26 @@ public class GameObject {
 			}
 			if (direction.equalsIgnoreCase("left")) {
 				if (xPos[3] <= 8 && xPos[0] >= 2) {
-					if(currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
-					if (grid.grid[xPos[0] - 1][yPos[i]]) {
-						canMoveLeft = false;
-						break;
-					}
-					}
-					if(currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
-						if(grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[1] - 1][yPos[0]]) {
+					if (currentState.equalsIgnoreCase("t")) {
+						if (grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[2] - 1][yPos[2]]) {
 							canMoveLeft = false;
 						}
 					}
-					if(currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
-						if(grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[2] - 1][yPos[2]] && grid.grid[xPos[1] - 1][yPos[1]]) {
-						canMoveLeft = false;
+					if (currentState.equalsIgnoreCase("line") || currentState.equalsIgnoreCase("square")) {
+						if (grid.grid[xPos[0] - 1][yPos[i]]) {
+							canMoveLeft = false;
+							break;
+						}
+					}
+					if (currentState.equalsIgnoreCase("s") || currentState.equalsIgnoreCase("z")) {
+						if (grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[1] - 1][yPos[0]]) {
+							canMoveLeft = false;
+						}
+					}
+					if (currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l")) {
+						if (grid.grid[xPos[0] - 1][yPos[0]] && grid.grid[xPos[2] - 1][yPos[2]]
+								&& grid.grid[xPos[1] - 1][yPos[1]]) {
+							canMoveLeft = false;
 						}
 					}
 					// start here, checking left and right movement
@@ -296,8 +362,64 @@ public class GameObject {
 				isActive = false;
 			}
 		}
-
+		if (direction.equalsIgnoreCase("space")) {
+			if (canMoveDown == true) {
+					for (int i = 0; i < 30; i++) {
+						if (currentState.equalsIgnoreCase("t") && yPos[0] + 1 < 23 && yPos[1] + 1 < 23 && yPos[2] + 1 < 23 && yPos[3] + 1 < 23) {
+							}
+							if (grid.grid[xPos[0]][yPos[0] + 1] == false || grid.grid[xPos[1]][yPos[1] + 1] == false
+									|| grid.grid[xPos[3]][yPos[3] + 1] == false) {
+								update("down");
+							} else {
+								canMoveDown = false;
+								break;
+							}
+						if (currentState.equalsIgnoreCase("line") && yPos[0] + 1 < 23 && yPos[1] + 1 < 23 && yPos[2] + 1 < 23 && yPos[3] + 1 < 23) {
+							if (grid.grid[xPos[0]][yPos[0] + 1] == false || grid.grid[xPos[1]][yPos[1] + 1] == false
+									|| grid.grid[xPos[2]][yPos[2] + 1] == false
+									|| grid.grid[xPos[3]][yPos[3] + 1] == false) {
+								update("down");
+							} else {
+								canMoveDown = false;
+								break;
+							}
+						}
+						if (currentState.equalsIgnoreCase("square") && yPos[0] + 1 < 23 && yPos[1] + 1 < 23 && yPos[2] + 1 < 23 && yPos[3] + 1 < 23) {
+							if (grid.grid[xPos[2]][yPos[2] + 1] == false || grid.grid[xPos[3]][yPos[3] + 1] == false) {
+								update("down");
+							} else {
+								canMoveDown = false;
+								break;
+							}
+						}
+						if (currentState.equalsIgnoreCase("s") && yPos[0] + 1 < 23 && yPos[1] + 1 < 23 && yPos[2] + 1 < 23 && yPos[3] + 1 < 23) {
+							if (grid.grid[xPos[0]][yPos[0] + 1] == false || grid.grid[xPos[2]][yPos[2] + 1] == false) {
+								update("down");
+							} else {
+								canMoveDown = false;
+								break;
+							}
+						}
+						if (currentState.equalsIgnoreCase("z") && yPos[0] + 1 < 23 && yPos[1] + 1 < 23 && yPos[2] + 1 < 23 && yPos[3] + 1 < 23) {
+							if (grid.grid[xPos[1]][yPos[1] + 1] == false || grid.grid[xPos[3]][yPos[3] + 1] == false) {
+								update("down");
+							} else {
+								canMoveDown = false;
+								break;
+							}
+						}
+						if (currentState.equalsIgnoreCase("j") || currentState.equalsIgnoreCase("l") && yPos[0] + 1 < 23 && yPos[1] + 1 < 23 && yPos[2] + 1 < 23 && yPos[3] + 1 < 23) {
+							if (grid.grid[xPos[0]][yPos[0] + 1] == false || grid.grid[xPos[3]][yPos[3] + 1] == false) {
+								update("down");
+							} else {
+								canMoveDown = false;
+								break;
+							}
+						}
+			}
+					}
+			}
+		}
 	}
-	
 
-}
+
