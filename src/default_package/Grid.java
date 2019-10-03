@@ -1,6 +1,7 @@
 package default_package;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -15,7 +16,12 @@ Grid(int w, int h) {
 	this.width = w;
 	this.height = h;
 }
-
+	public void end(Graphics g) {
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
+		g.setColor(Color.BLACK);
+		g.drawString("Game Over", MainClass.framewidth/2-20, MainClass.frameheight/2);
+	}
 	public void update(Graphics g) {	
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);

@@ -13,7 +13,7 @@ public class MainClass {
 	JFrame frame;
 	GamePanel panel;
 
-	public final static int framewidth = 305;
+	public final static int framewidth = 505;
 	public final static int frameheight = 775;
 
 	void setup() {
