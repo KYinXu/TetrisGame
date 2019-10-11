@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for (int i = 0; i < 4; i++) {
 					grid.grid[object.xPos[i]][object.yPos[i]] = true;
 				}
-				int r = new Random().nextInt(7);
+				int r = new Random().nextInt(2) + 4;
 				object.rotation = 0;
 				if (r == 0) {
 
@@ -111,19 +111,32 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_LEFT && object.canMoveLeft == true) {
 			object.update("check");
 			if (object.canMoveLeft == true) {
-				object.moveLeft();
+				if (object.xPos[0] >= 1 && object.xPos[1] >= 1 && object.xPos[2] >= 1 && object.xPos[3] >= 1) {
+					object.moveLeft();
+				}
+
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && object.canMoveRight == true) {
 			object.update("check");
 			if (object.canMoveRight == true) {
-				object.moveRight();
+				if (object.xPos[0] <= 8 && object.xPos[1] <= 8 && object.xPos[2] <= 8 && object.xPos[3] <= 8) {
+					object.moveRight();
+				}
+
 			}
 		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			object.update("down");
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			object.update("space");
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			object.update("r");
+			for (int i = 0; i < 4; i++) {
+				if (object.xPos[0] >= 1 && object.xPos[1] >= 1 && object.xPos[2] >= 1 && object.xPos[3] >= 1
+						&& object.xPos[0] <= 8 && object.xPos[1] <= 8 && object.xPos[2] <= 8 && object.xPos[3] <= 8) {
+					object.update("r");
+					break;
+				}
+			}
+
 		}
 		repaint();
 	}
