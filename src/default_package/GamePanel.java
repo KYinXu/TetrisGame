@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int TimeToUpdate = 1;
 	GameObject object;
 	Grid grid;
-	Timer t = new Timer(500 / 3, this);
+	Timer t = new Timer(1000 / 3, this);
 
 	public GamePanel() {
 		t.start();

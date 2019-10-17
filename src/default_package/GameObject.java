@@ -816,56 +816,150 @@ public class GameObject {
 					}
 			}
 		if(direction.equalsIgnoreCase("r")) {
+			update("check");
 			if(currentState.equalsIgnoreCase("l")) {
 				if(rotation == 0) {
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = false;
-					yPos[0]--;
-					xPos[1]+=2;
-					yPos[1]++;
-					xPos[2]++;
-					xPos[3]--;
+					for(int y=0;y<3;y++) {
+						for(int x=0;x<3;x++) {
+							System.out.print(grid.grid[xPos[1]+x][yPos[1]+y] + " ");
+						}
+						System.out.print("\n");
+					}
+					for(int i=0;i<3;i++) {
+					for(int j=0;j<3;j++) {
+
+						if(rotation == 1) {
+							break;
+						}
+						if(xPos[1]+i>8) {
+							break;
+						}
+						if(grid.grid[xPos[1]+i][yPos[1]+j]== false) {
+						yPos[0]--;
+						xPos[1]+=2;
+						yPos[1]++;
+						xPos[2]++;
+						xPos[3]--;	
+						rotation++;
+						break;
+					}
+						else {
+							break;
+						}
+					}
+					}
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = true;
-						rotation++;
+
 				}
 				else if(rotation == 1) {
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = false;
+					for(int y=0;y<3;y++) {
+						for(int x=0;x<3;x++) {
+							System.out.print(grid.grid[xPos[0]+x][yPos[0]+y-1] + " ");
+						}
+						System.out.print("\n");
+					}
+					for(int i=0;i<3;i++) {
+					for(int j=0;j<3;j++) {
+
+						
+						if(rotation == 2) {
+							break;
+						}
+						if(xPos[0]+i>8) {
+							break;
+						}
+						if(grid.grid[xPos[0]+i][yPos[0]-1+j]== false) {
 					xPos[0]++;
 					yPos[0]--;
 					xPos[1]--;
 					yPos[1]++;
 					yPos[3]-=2;
+					rotation++;
+					break;
+						}
+					}
+					}
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = true;
-						rotation++;
 				}
 				else if(rotation == 2) {
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = false;
+					for(int y=0;y<3;y++) {
+						for(int x=0;x<3;x++) {
+							System.out.print(grid.grid[xPos[3]+x][yPos[3]+y] + " ");
+						}
+						System.out.print("\n");
+					}
+					for(int i=0;i<3;i++) {
+					for(int j=0;j<3;j++) {
+
+						if(rotation == 3) {
+							break;
+						}
+						if(xPos[3]+i>8) {
+							break;
+						}
+						if(grid.grid[xPos[3]+i][yPos[3]+j]== false) {
 					xPos[0]++;
 					yPos[0]+=2;
 					xPos[1]--;
 					yPos[2]++;
 					xPos[3]+=2;
 					yPos[3]++;
+					rotation++;
+					break;
+						}
+						else {
+							break;
+						}
+					}
+					}
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = true;
-						rotation++;
 				}
 				else if(rotation == 3) {
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = false;
+					for(int y=0;y<3;y++) {
+						for(int x=0;x<3;x++) {
+							System.out.print(grid.grid[xPos[1]+x][yPos[1]+y-2] + " ");
+						}
+						System.out.print("\n");
+					}
+					for(int i=0;i<3;i++) {
+					for(int j=0;j<3;j++) {
+
+						if(rotation == 0) {
+							break;
+						}
+						if(xPos[1]+i>8) {
+							break;
+						}
+						if(grid.grid[xPos[1]+i][yPos[1]-2+j]== false) {
+							
 					xPos[0]-=2;
 					yPos[1]-=2;
 					xPos[2]--;
 					yPos[2]--;
 					xPos[3]--;
 					yPos[3]++;
+					rotation=0;
+					break;
+						}
+						else {
+							break;
+						}
+					}
+					}
 					for(int i=0;i<4;i++)
 						grid.grid[xPos[i]][yPos[i]] = true;
-						rotation = 0;
+
 				}
 			}
 			/*
