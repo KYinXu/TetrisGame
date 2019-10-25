@@ -132,7 +132,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			for (int i = 0; i < 4; i++) {
 				if (object.xPos[0] >= 1 && object.xPos[1] >= 1 && object.xPos[2] >= 1 && object.xPos[3] >= 1
 						&& object.xPos[0] <= 8 && object.xPos[1] <= 8 && object.xPos[2] <= 8 && object.xPos[3] <= 8) {
+					object.checkLeft();
+					object.checkRight();
+					if(object.canRotate == true) {
 					object.update("r");
+					}
 					break;
 				}
 			}
