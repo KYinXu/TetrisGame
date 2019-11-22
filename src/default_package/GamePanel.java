@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for (int i = 0; i < 4; i++) {
 					grid.grid[object.xPos[i]][object.yPos[i]] = true;
 				}
-				int r = new Random().nextInt(2) + 4;
+				int r = new Random().nextInt(7);
 				object.rotation = 0;
 				if (r == 0) {
 
