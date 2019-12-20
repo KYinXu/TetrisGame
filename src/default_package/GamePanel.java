@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(grid.height);
 		if (GameState.equalsIgnoreCase("Game")) {
 			object.update("check");
 
