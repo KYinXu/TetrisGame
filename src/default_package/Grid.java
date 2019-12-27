@@ -10,7 +10,7 @@ public final static int UnitSize = 30;
 public int width;
 public int height;
 public boolean[][] grid;
-
+public boolean full;
 Grid(int w, int h) {
 	grid = new boolean[w][h];
 	this.width = w;
@@ -22,7 +22,8 @@ Grid(int w, int h) {
 		g.setColor(Color.BLACK);
 		g.drawString("Game Over", MainClass.framewidth/2-20, MainClass.frameheight/2);
 	}
-	public void update(Graphics g) {	
+	public void update(Graphics g) {
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
 		for(int i=0;i<width;i++) {
@@ -39,5 +40,27 @@ Grid(int w, int h) {
 				}
 			}
 		}
+	}
+	public void clear(int Row) {
+		for(int i = 0; i < width; i++) {
+			grid[i][Row] = false;
+		}
+		for(int i = Row-1; i >= 0; i--) {
+			for(int o = 0; o < width; o++) {
+				grid[o][i+1] = grid[o][i];
+			}
+		}
+	}
+	public boolean checkRow(int Row) {
+		for(int i = 0; i < width; i++) {
+			if(grid[i][Row] == false) {
+				full = false;
+				break;
+			}
+			else if(i + 1 == width) {
+				full = true;
+			}
+		}
+		return full;
 	}
 }

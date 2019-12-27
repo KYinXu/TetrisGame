@@ -7,13 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class MainClass {
 	JFrame frame;
 	GamePanel panel;
-
 	public final static int framewidth = 505;
 	public final static int frameheight = 775;
 	void setup() {

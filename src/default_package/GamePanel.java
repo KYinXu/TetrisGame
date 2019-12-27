@@ -34,11 +34,81 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			grid.update(g);
 		}
 	}
+	public String NewBlock() {
+		String block;
+		int r = new Random().nextInt(7);
+		object.rotation = 0;
+		for(int i = 0; i < grid.height; i++) {
+			if(grid.checkRow(i) == true) {
+				grid.clear(i);
+			}
+		}
+		if (r == 0) {
 
+
+			block = "line";
+
+		} else if (r == 1) {
+
+
+			block = "square";
+
+		} else if (r == 2) {
+
+
+			block = "s";
+
+		} else if (r == 3) {
+
+
+			block = "z";
+
+		} else if (r == 4) {
+
+
+			block = "j";
+
+		} else if (r == 5) {
+
+
+			block = "l";
+
+		} else {
+
+
+			block = "t";
+
+		}
+		return block;
+	}
+	public void SetBlock() {
+		if(object.currentState.equalsIgnoreCase("line")) {
+			object = new LineBlock(grid);
+		}
+		if(object.currentState.equalsIgnoreCase("l")) {
+			object = new LBlock(grid);
+		}
+		if(object.currentState.equalsIgnoreCase("j")) {
+			object = new JBlock(grid);
+		}
+		if(object.currentState.equalsIgnoreCase("z")) {
+			object = new ZBlock(grid);
+		}
+		if(object.currentState.equalsIgnoreCase("s")) {
+			object = new SBlock(grid);
+		}
+		if(object.currentState.equalsIgnoreCase("square")) {
+			object = new SquareBlock(grid);
+		}
+		if(object.currentState.equalsIgnoreCase("t")) {
+			object = new TBlock(grid);
+		}
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(grid.height);
 		if (GameState.equalsIgnoreCase("Game")) {
+
 			object.update("check");
 
 			if (object.isActive == true) {
@@ -55,44 +125,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for (int i = 0; i < 4; i++) {
 					grid.grid[object.xPos[i]][object.yPos[i]] = true;
 				}
-				int r = new Random().nextInt(7);
-				object.rotation = 0;
-				if (r == 0) {
-
-					object = new LineBlock(grid);
-					object.currentState = "line";
-
-				} else if (r == 1) {
-
-					object = new SquareBlock(grid);
-					object.currentState = "square";
-
-				} else if (r == 2) {
-
-					object = new SBlock(grid);
-					object.currentState = "s";
-
-				} else if (r == 3) {
-
-					object = new ZBlock(grid);
-					object.currentState = "z";
-
-				} else if (r == 4) {
-
-					object = new JBlock(grid);
-					object.currentState = "j";
-
-				} else if (r == 5) {
-
-					object = new LBlock(grid);
-					object.currentState = "l";
-
-				} else if (r == 6) {
-
-					object = new TBlock(grid);
-					object.currentState = "t";
-
-				}
+				object.currentState = NewBlock();
+				SetBlock();
+				object.Next = NewBlock();
 			}
 			repaint();
 		}
@@ -135,6 +170,22 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				
 			}
 
+		}
+		else if(e.getKeyCode() == KeyEvent.VK_C) {
+			for(int i = 0; i < 4; i++)
+			object.grid.grid[object.xPos[i]][object.yPos[i]] = false;
+			repaint();
+			object.Hold = object.currentState;
+			if(object.Hold.equalsIgnoreCase("blank")) {
+				object.currentState = object.Next;
+				object.Next = NewBlock();
+			}
+			else {
+			object.currentState = object.Hold;
+			}
+			for(int i = 0; i < 4; i++)
+			object.grid.grid[object.xPos[i]][object.yPos[i]] = true;
+			SetBlock();
 		}
 		repaint();
 	}
