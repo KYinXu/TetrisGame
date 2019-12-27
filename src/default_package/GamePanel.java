@@ -174,7 +174,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		else if(e.getKeyCode() == KeyEvent.VK_C) {
 			for(int i = 0; i < 4; i++)
 			object.grid.grid[object.xPos[i]][object.yPos[i]] = false;
-			repaint();
 			object.Hold = object.currentState;
 			if(object.Hold.equalsIgnoreCase("blank")) {
 				object.currentState = object.Next;
