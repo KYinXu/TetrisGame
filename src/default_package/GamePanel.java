@@ -1,5 +1,6 @@
 package default_package;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,12 +19,18 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int TimeToUpdate = 1;
 	GameObject object;
 	Grid grid;
+	String Next = "blank";
+	String Hold = "blank";
+	String Hold2 = "blank";
+	boolean canHold = true;
 	Timer t = new Timer(1000 / 3, this);
 
 	public GamePanel() {
 		t.start();
 		grid = new Grid(10, 25);
 		object = new LineBlock(grid);
+		object.currentState = "line";
+
 	}
 
 	public void paintComponent(Graphics g) {
@@ -84,24 +91,31 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void SetBlock() {
 		if(object.currentState.equalsIgnoreCase("line")) {
 			object = new LineBlock(grid);
+			object.currentState = "line";
 		}
 		if(object.currentState.equalsIgnoreCase("l")) {
 			object = new LBlock(grid);
+			object.currentState = "l";
 		}
 		if(object.currentState.equalsIgnoreCase("j")) {
 			object = new JBlock(grid);
+			object.currentState = "j";
 		}
 		if(object.currentState.equalsIgnoreCase("z")) {
 			object = new ZBlock(grid);
+			object.currentState = "z";
 		}
 		if(object.currentState.equalsIgnoreCase("s")) {
 			object = new SBlock(grid);
+			object.currentState = "s";
 		}
 		if(object.currentState.equalsIgnoreCase("square")) {
 			object = new SquareBlock(grid);
+			object.currentState = "square";
 		}
 		if(object.currentState.equalsIgnoreCase("t")) {
 			object = new TBlock(grid);
+			object.currentState = "t";
 		}
 	}
 	@Override
@@ -125,9 +139,19 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for (int i = 0; i < 4; i++) {
 					grid.grid[object.xPos[i]][object.yPos[i]] = true;
 				}
-				object.currentState = NewBlock();
+				System.out.println(Next);
+				if(Next.equalsIgnoreCase(null)) {
+					System.out.println("awetssdgrg broken");
+				}
+				if(Next.equalsIgnoreCase("blank")) {
+					Next = NewBlock();
+					System.out.println(Next + "efsduhhhhhhhxm,rrg vcxfthhhgn");
+				}
+				object.currentState = Next;
+				System.out.println(object.currentState + "     eaffdrhhhhhhhtffgnyjnnntgd");
+				Next = NewBlock();
 				SetBlock();
-				object.Next = NewBlock();
+				canHold = true;
 			}
 			repaint();
 		}
@@ -172,19 +196,27 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_C) {
+			if(canHold = true) {
 			for(int i = 0; i < 4; i++)
 			object.grid.grid[object.xPos[i]][object.yPos[i]] = false;
-			object.Hold = object.currentState;
-			if(object.Hold.equalsIgnoreCase("blank")) {
-				object.currentState = object.Next;
-				object.Next = NewBlock();
+			if(Hold.equalsIgnoreCase("blank")) {
+				Hold = object.currentState;
+				Hold2 = object.currentState;
+				object.currentState = Next;
+				Next = NewBlock();
+				SetBlock();
 			}
 			else {
-			object.currentState = object.Hold;
+				Hold2 = Hold;
+				Hold = object.currentState;
+				object.currentState = Hold2;
+				Hold2 = Hold;
+				SetBlock();
 			}
+			canHold = false;
 			for(int i = 0; i < 4; i++)
 			object.grid.grid[object.xPos[i]][object.yPos[i]] = true;
-			SetBlock();
+		}
 		}
 		repaint();
 	}

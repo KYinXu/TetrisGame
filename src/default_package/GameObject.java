@@ -4,9 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 public class GameObject {
-	String currentState = "line";
-	String Next;
-	String Hold = "blank";
+	String currentState;
 	boolean canMoveRight = true;
 	boolean canMoveLeft = true;
 	boolean canRotate = true;
@@ -722,6 +720,7 @@ public class GameObject {
 				}
 			}
 			if(currentState.equalsIgnoreCase("line") && canRotate == true && yPos[0] >= 2) {
+				System.out.println("testtesttest");
 				if(rotation == 0) {
 
 
@@ -968,10 +967,10 @@ public class GameObject {
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								yPos[0]-=2;
-								xPos[2]++;
-								yPos[2]++;
-								yPos[3]--;
-								xPos[3]++;
+								xPos[2]--;
+								yPos[2]--;
+								xPos[3]--;
+								yPos[3]++;
 								rotation = 1;
 							}
 						}

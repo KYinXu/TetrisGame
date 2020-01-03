@@ -40,6 +40,7 @@ Grid(int w, int h) {
 				}
 			}
 		}
+
 	}
 	public void clear(int Row) {
 		for(int i = 0; i < width; i++) {
