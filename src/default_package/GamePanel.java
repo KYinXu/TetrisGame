@@ -192,14 +192,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			object.update("space");
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-for(int i = 0;i < 4; i++) {
+			for(int i = 0;i < 4; i++) {
 					object.checkLeft();
 					object.checkRight();
 					if(object.canRotate == true) {
 					object.update("r");
 					}
 					break;
-}
+			}
 				
 			
 
