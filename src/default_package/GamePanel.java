@@ -1,6 +1,7 @@
 package default_package;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,22 +23,32 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	String Next = "blank";
 	String Hold = "blank";
 	String Hold2 = "blank";
-	boolean canHold = true;
+	boolean canHold;
 	Timer t = new Timer(1000 / 3, this);
-
+	int Level;
+	int clears = 0;
 	public GamePanel() {
 		t.start();
+		Level = 1;
 		grid = new Grid(10, 25);
 		object = new LineBlock(grid);
 		object.currentState = "line";
-
+		canHold = true;
 	}
 
 	public void paintComponent(Graphics g) {
+		System.out.println(Level);
 		if (GameState.equalsIgnoreCase("Lose")) {
 			System.out.println("lose");
 			grid.end(g);
 		} else {
+			if(clears >= 10) {
+				Level++;
+				clears-=10;
+				t.stop();
+				t = new Timer(1000/(3+(2*Level/5)), this);
+				t.start();
+			}
 			grid.update(g);
 		}
 	}
@@ -48,6 +59,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		for(int i = 0; i < grid.height; i++) {
 			if(grid.checkRow(i) == true) {
 				grid.clear(i);
+				clears++;
 			}
 		}
 		if (r == 0) {
@@ -120,7 +132,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(grid.height);
 		if (GameState.equalsIgnoreCase("Game")) {
 
 			object.update("check");
@@ -141,14 +152,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 				System.out.println(Next);
 				if(Next.equalsIgnoreCase(null)) {
-					System.out.println("awetssdgrg broken");
 				}
 				if(Next.equalsIgnoreCase("blank")) {
 					Next = NewBlock();
-					System.out.println(Next + "efsduhhhhhhhxm,rrg vcxfthhhgn");
 				}
 				object.currentState = Next;
-				System.out.println(object.currentState + "     eaffdrhhhhhhhtffgnyjnnntgd");
 				Next = NewBlock();
 				SetBlock();
 				canHold = true;
@@ -184,21 +192,25 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			object.update("space");
 		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			for (int i = 0; i < 4; i++) {
+for(int i = 0;i < 4; i++) {
 					object.checkLeft();
 					object.checkRight();
 					if(object.canRotate == true) {
 					object.update("r");
 					}
 					break;
+}
 				
-			}
+			
 
 		}
 		else if(e.getKeyCode() == KeyEvent.VK_C) {
-			if(canHold = true) {
+			if(canHold == true) {
 			for(int i = 0; i < 4; i++)
 			object.grid.grid[object.xPos[i]][object.yPos[i]] = false;
+			if(Next.equalsIgnoreCase("blank")) {
+				Next = NewBlock();
+			}
 			if(Hold.equalsIgnoreCase("blank")) {
 				Hold = object.currentState;
 				Hold2 = object.currentState;

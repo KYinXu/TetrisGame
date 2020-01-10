@@ -404,10 +404,6 @@ public class GameObject {
 								yPos[1]++;
 								xPos[2]++;
 								xPos[3]--;
-								for (int j1 = 0; j1 < 4; j1++) {
-									System.out.println(xPos[j1]);
-									System.out.println(yPos[j1]);
-								}
 								rotation++;
 								for (int z = 0; z < 4; z++) {
 									if (grid.grid[xPos[z]][yPos[z]]) {
@@ -720,7 +716,6 @@ public class GameObject {
 				}
 			}
 			if(currentState.equalsIgnoreCase("line") && canRotate == true && yPos[0] >= 2) {
-				System.out.println("testtesttest");
 				if(rotation == 0) {
 
 

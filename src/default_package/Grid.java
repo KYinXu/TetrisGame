@@ -11,6 +11,7 @@ public int width;
 public int height;
 public boolean[][] grid;
 public boolean full;
+
 Grid(int w, int h) {
 	grid = new boolean[w][h];
 	this.width = w;
@@ -20,7 +21,7 @@ Grid(int w, int h) {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
 		g.setColor(Color.BLACK);
-		g.drawString("Game Over", MainClass.framewidth/2-20, MainClass.frameheight/2);
+		//g.drawString("Game Over", MainClass.framewidth/2-20, MainClass.frameheight/2);
 	}
 	public void update(Graphics g) {
 
@@ -40,7 +41,7 @@ Grid(int w, int h) {
 				}
 			}
 		}
-
+		
 	}
 	public void clear(int Row) {
 		for(int i = 0; i < width; i++) {
