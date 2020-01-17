@@ -14,7 +14,7 @@ import javax.swing.Timer;
 public class MainClass {
 	JFrame frame;
 	GamePanel panel;
-	public final static int framewidth = 505;
+	public final static int framewidth = 520;
 	public final static int frameheight = 775;
 	void setup() {
 		frame = new JFrame();

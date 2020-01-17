@@ -413,10 +413,13 @@ public class GameObject {
 										xPos[2]--;
 										xPos[3]++;
 										rotation--;
+										canRotate = false;
+										break;
 									}
 
 									
 								}
+								
 								for (int i3 = 0; i3 < 4; i3++)
 									grid.grid[xPos[i3]][yPos[i3]] = true;
 								break;
@@ -449,6 +452,7 @@ public class GameObject {
 								yPos[1]++;
 								yPos[3] -= 2;
 								rotation++;
+								
 								for (int z = 0; z < 4; z++) {
 									if (grid.grid[xPos[z]][yPos[z]]) {
 										xPos[0]--;
@@ -457,8 +461,11 @@ public class GameObject {
 										yPos[1]--;
 										yPos[3] += 2;
 										rotation--;
+										canRotate = false;
+										break;
 									} 
 								}
+								
 								for (int i3 = 0; i3 < 4; i3++)
 								grid.grid[xPos[i3]][yPos[i3]] = true;
 								break;
@@ -489,6 +496,7 @@ public class GameObject {
 								xPos[3] += 2;
 								yPos[3]++;
 								rotation++;
+								
 								for (int z = 0; z < 4; z++) {
 									if (grid.grid[xPos[z]][yPos[z]]) {
 										xPos[0]--;
@@ -498,8 +506,11 @@ public class GameObject {
 										xPos[3] -= 2;
 										yPos[3]--;
 										rotation--;
+										canRotate = false;
+										break;
 									} 
 								}
+								
 								for (int i3 = 0; i3 < 4; i3++)
 								grid.grid[xPos[i3]][yPos[i3]] = true;
 							} else {
@@ -530,6 +541,7 @@ public class GameObject {
 								xPos[3]--;
 								yPos[3]++;
 								rotation = 0;
+								
 								for (int z = 0; z < 4; z++) {
 									if (grid.grid[xPos[z]][yPos[z]]) {
 										xPos[0] += 2;
@@ -539,8 +551,11 @@ public class GameObject {
 										xPos[3]++;
 										yPos[3]--;
 										rotation = 3;
+										canRotate = false;
+										break;
 									} 
 								}
+								
 								for (int i3 = 0; i3 < 4; i3++)
 								grid.grid[xPos[i3]][yPos[i3]] = true;
 								break;
@@ -594,6 +609,7 @@ public class GameObject {
 								yPos[2]++;
 								xPos[3]--;
 								rotation++;
+								
 								for (int z = 0; z < 4; z++) {
 									if (grid.grid[xPos[z]][yPos[z]]) {
 										yPos[0]++;
@@ -601,8 +617,12 @@ public class GameObject {
 										yPos[1] -= 2;
 										yPos[2]--;
 										xPos[3]++;
+										rotation--;
+										canRotate = false;
+										break;
 									} 
 								}
+								
 								for (int i3 = 0; i3 < 4; i3++)
 								grid.grid[xPos[i3]][yPos[i3]] = true;
 							}
@@ -637,6 +657,7 @@ public class GameObject {
 								yPos[2]--;
 								yPos[3] -= 2;
 								rotation++;
+								
 								for (int z = 0; z < 4; z++) {
 									if (grid.grid[xPos[z]][yPos[z]]) {
 										if (xPos[0] <= 0) {
@@ -650,8 +671,11 @@ public class GameObject {
 										yPos[2]++;
 										yPos[3] += 2;
 										rotation--;
+										canRotate = false;
+										break;
 									} 
 								}
+								
 								for (int i3 = 0; i3 < 4; i3++)
 								grid.grid[xPos[i3]][yPos[i3]] = true;
 							}
@@ -674,6 +698,7 @@ public class GameObject {
 						xPos[3] += 2;
 						yPos[3]++;
 						rotation++;
+						
 						for (int z = 0; z < 4; z++) {
 							if (grid.grid[xPos[z]][yPos[z]]) {
 								xPos[0]--;
@@ -683,8 +708,11 @@ public class GameObject {
 								xPos[3] -= 2;
 								yPos[3]--;
 								rotation--;
+								canRotate = false;
+										break;
 							} 
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -700,6 +728,7 @@ public class GameObject {
 						xPos[3]--;
 						yPos[3]++;
 						rotation = 0;
+						
 						for (int z = 0; z < 4; z++) {
 							if (grid.grid[xPos[z]][yPos[z]]) {
 								xPos[0] += 2;
@@ -708,8 +737,11 @@ public class GameObject {
 								xPos[3]++;
 								yPos[3]--;
 								rotation = 3;
+								canRotate = false;
+										break;
 							} 
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -729,6 +761,7 @@ public class GameObject {
 						xPos[3]--;
 						yPos[3]++;
 						rotation++;
+						
 						for (int z = 0; z < 4; z++) {
 							if (grid.grid[xPos[z]][yPos[z]]) {
 								xPos[0]-=2;
@@ -738,8 +771,11 @@ public class GameObject {
 								xPos[3]++;
 								yPos[3]--;
 								rotation--;
+								canRotate = false;
+										break;
 							} 
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -756,6 +792,7 @@ public class GameObject {
 						xPos[3]++;
 						yPos[3]--;
 						rotation++;
+						
 						for (int z = 0; z < 4; z++) {
 							if (grid.grid[xPos[z]][yPos[z]]) {
 								xPos[0]-=2;
@@ -765,8 +802,11 @@ public class GameObject {
 								xPos[3]++;
 								yPos[3]--;
 								rotation--;
+								canRotate = false;
+										break;
 							}
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -783,6 +823,7 @@ public class GameObject {
 						xPos[3]-=2;
 						yPos[3]++;
 						rotation++;
+						
 						for (int z = 0; z < 4; z++) {
 							if (grid.grid[xPos[z]][yPos[z]]) {
 								xPos[0]-=1;
@@ -792,8 +833,11 @@ public class GameObject {
 								xPos[3]+=2;
 								yPos[3]--;
 								rotation--;
+								canRotate = false;
+										break;
 							} 
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -810,6 +854,7 @@ public class GameObject {
 						xPos[3]+=2;
 						yPos[3]--;
 						rotation=0;
+						
 						for (int z = 0; z < 4; z++) {
 							if (grid.grid[xPos[z]][yPos[z]]) {
 								xPos[0]+=1;
@@ -819,8 +864,11 @@ public class GameObject {
 								xPos[3]-=2;
 								yPos[3]++;
 								rotation=3;
+								canRotate = false;
+										break;
 							}
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -836,6 +884,7 @@ public class GameObject {
 						yPos[1]--;
 						xPos[3]-=2;
 						rotation++;
+						
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								yPos[0]+=2;
@@ -843,8 +892,11 @@ public class GameObject {
 								yPos[1]++;
 								xPos[3]+=2;
 								rotation--;
+								canRotate = false;
+										break;
 							}
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -858,6 +910,7 @@ public class GameObject {
 						xPos[3]+=2;
 						yPos[3]-=2;
 						rotation++;
+						
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								yPos[0]--;
@@ -866,8 +919,11 @@ public class GameObject {
 								xPos[3]+=2;
 								yPos[3]++;
 								rotation--;
+								canRotate = false;
+										break;
 							}
 						}
+						
 						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
@@ -882,6 +938,7 @@ public class GameObject {
 						xPos[1]++;
 						yPos[1]++;
 						rotation++;
+						
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								xPos[0]-=2;
@@ -889,8 +946,11 @@ public class GameObject {
 								xPos[1]--;
 								yPos[1]--;
 								rotation--;
+								canRotate = false;
+										break;
 							}
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -904,11 +964,20 @@ public class GameObject {
 						xPos[1]--;
 						yPos[3]+=2;
 						rotation = 0;
+						
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
+						xPos[0]+=2;
+						yPos[1]--;
+						xPos[1]++;
+						yPos[3]-=2;
+						rotation = 0;
 								rotation = 3;
+								canRotate = false;
+										break;
 							}
 						}
+						
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -935,6 +1004,7 @@ public class GameObject {
 						xPos[3]--;
 						yPos[3]++;
 							rotation = 1;
+							/*
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								yPos[0]+=2;
@@ -945,6 +1015,7 @@ public class GameObject {
 								rotation = 0;
 							}
 						}
+						*/
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -959,6 +1030,7 @@ public class GameObject {
 						xPos[3]++;
 						yPos[3]--;
 						rotation = 0;
+						/*
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								yPos[0]-=2;
@@ -969,6 +1041,7 @@ public class GameObject {
 								rotation = 1;
 							}
 						}
+						*/
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -994,6 +1067,7 @@ public class GameObject {
 						yPos[1]--;
 						xPos[3]-=2;
 							rotation = 1;
+							/*
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								yPos[0]++;
@@ -1004,6 +1078,7 @@ public class GameObject {
 								rotation = 0;
 							}
 						}
+						*/
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}
@@ -1018,6 +1093,7 @@ public class GameObject {
 						yPos[1]++;
 						xPos[3]+=2;
 						rotation = 0;
+						/*
 						for(int z = 0; z < 4; z++) {
 							if(grid.grid[xPos[z]][yPos[z]]) {
 								yPos[0]--;
@@ -1028,6 +1104,7 @@ public class GameObject {
 								rotation = 1;
 							}
 						}
+						*/
 						for (int i = 0; i < 4; i++)
 							grid.grid[xPos[i]][yPos[i]] = true;
 					}

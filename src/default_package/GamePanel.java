@@ -34,6 +34,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		object = new LineBlock(grid);
 		object.currentState = "line";
 		canHold = true;
+		Next = NewBlock();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -42,14 +43,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			System.out.println("lose");
 			grid.end(g);
 		} else {
-			if(clears >= 10) {
+			if(clears >= 5) {
 				Level++;
 				clears-=10;
 				t.stop();
 				t = new Timer(1000/(3+(2*Level/5)), this);
 				t.start();
 			}
-			grid.update(g);
+			grid.update(g, Hold, Next);
 		}
 	}
 	public String NewBlock() {
@@ -101,6 +102,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		return block;
 	}
 	public void SetBlock() {
+		if(object.currentState.equalsIgnoreCase("t")) {
+			object = new TBlock(grid);
+			object.currentState = "t";
+		}
 		if(object.currentState.equalsIgnoreCase("line")) {
 			object = new LineBlock(grid);
 			object.currentState = "line";
@@ -125,10 +130,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			object = new SquareBlock(grid);
 			object.currentState = "square";
 		}
-		if(object.currentState.equalsIgnoreCase("t")) {
-			object = new TBlock(grid);
-			object.currentState = "t";
-		}
+
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
