@@ -874,7 +874,7 @@ public class GameObject {
 					}
 				}
 			}
-			if(currentState.equalsIgnoreCase("t") && canRotate == true && yPos[0] >= 1) {
+			if(currentState.equalsIgnoreCase("t") && canRotate == true && yPos[2] >= 1) {
 				if(rotation == 0) {
 					if(checkLeft() == true && checkRight() == true) {
 						for(int i = 0; i < 4; i++)

@@ -21,11 +21,9 @@ public class Grid {
 	}
 
 	public void end(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
 		g.setColor(Color.BLACK);
-		// g.drawString("Game Over", MainClass.framewidth/2-20,
-		// MainClass.frameheight/2);
+		g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
+
 	}
 
 	public void update(Graphics g, String Hold, String Next) {
@@ -36,7 +34,7 @@ public class Grid {
 		for (int i = 0; i < width; i++) {
 			for (int z = 0; z < height; z++) {
 				g.setColor(Color.BLUE);
-				g.drawRect(i * 30, z * 30, UnitSize, UnitSize);
+				g.drawRect(i * 30, z * 30 - 30, UnitSize, UnitSize);
 			}
 			g.setColor(Color.BLUE);
 			g.drawRect(330, 80, UnitSize * 4 + 40, UnitSize * 3 + 40);
@@ -48,7 +46,7 @@ public class Grid {
 			for (int z = 0; z < height; z++) {
 				if (grid[i][z]) {
 					g.setColor(Color.CYAN);
-					g.fillRect(i * 30 + 2, z * 30 + 2, UnitSize - 2, UnitSize - 2);
+					g.fillRect(i * 30 + 2, z * 30 + 2 - 30, UnitSize - 2, UnitSize - 2);
 				}
 			}
 		}
@@ -62,7 +60,7 @@ public class Grid {
 			for (int i = 0; i < 4; i++) {
 				if (i == 2) {
 					counterx = 0;
-					counter++;
+					counter = 1;
 				}
 				g.setColor(Color.CYAN);
 				g.fillRect(counterx * 30 + 381, counter * 30 + 116, UnitSize - 2, UnitSize - 2);

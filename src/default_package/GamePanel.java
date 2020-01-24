@@ -24,24 +24,31 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	String Hold = "blank";
 	String Hold2 = "blank";
 	boolean canHold;
+	int endy;
 	Timer t = new Timer(1000 / 3, this);
 	int Level;
 	int clears = 0;
 	public GamePanel() {
 		t.start();
 		Level = 1;
-		grid = new Grid(10, 25);
+		grid = new Grid(10, 26);
 		object = new LineBlock(grid);
 		object.currentState = "line";
 		canHold = true;
 		Next = NewBlock();
+		endy = MainClass.frameheight;
 	}
 
 	public void paintComponent(Graphics g) {
 		System.out.println(Level);
 		if (GameState.equalsIgnoreCase("Lose")) {
-			System.out.println("lose");
-			grid.end(g);
+			if(endy > 0) {
+			end(g);
+			}
+			else {
+				g.setColor(Color.RED);
+				g.fillRect(0,  0,  MainClass.framewidth, MainClass.frameheight);
+			}
 		} else {
 			if(clears >= 5) {
 				Level++;
@@ -53,6 +60,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			grid.update(g, Hold, Next);
 		}
 	}
+	public void end(Graphics g) {
+		grid.update(g, Hold, Next);
+		g.setColor(Color.RED);
+			g.fillRect(0, endy, MainClass.framewidth, MainClass.frameheight);
+		}
+
 	public String NewBlock() {
 		String block;
 		int r = new Random().nextInt(7);
@@ -134,6 +147,10 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (GameState.equalsIgnoreCase("Lose")) {
+			endy-=1;
+			repaint();
+		}
 		if (GameState.equalsIgnoreCase("Game")) {
 
 			object.update("check");
@@ -145,7 +162,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			} else {
 
 				for (int i = 0; i < 4; i++) {
-					if (object.yPos[i] <= 0 && grid.grid[object.xPos[i]][object.yPos[i]]) {
+					if (object.yPos[i] <= 1 && grid.grid[object.xPos[i]][object.yPos[i]]) {
 						GameState = "Lose";
 					}
 				}
