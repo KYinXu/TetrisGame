@@ -18,17 +18,23 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	String GameState = "Game";
 	long updateTimer = 0;
 	int TimeToUpdate = 1;
+	int streak = 0;
+	boolean tetrisstreak;
 	GameObject object;
 	Grid grid;
 	String Next = "blank";
 	String Hold = "blank";
 	String Hold2 = "blank";
+	Font font;
+	int Score = 0;
 	boolean canHold;
 	int endy;
 	Timer t = new Timer(1000 / 3, this);
 	int Level;
 	int clears = 0;
+
 	public GamePanel() {
+		font = new Font("Arial", Font.BOLD, 24);
 		t.start();
 		Level = 1;
 		grid = new Grid(10, 26);
@@ -40,116 +46,144 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		System.out.println(Level);
+		g.drawString("", 100, 100);
 		if (GameState.equalsIgnoreCase("Lose")) {
-			if(endy > 0) {
-			end(g);
-			}
-			else {
+			if (endy > 0) {
+				end(g);
+			} else {
 				g.setColor(Color.RED);
-				g.fillRect(0,  0,  MainClass.framewidth, MainClass.frameheight);
+				g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
 			}
 		} else {
-			if(clears >= 5) {
+			if (clears >= 5) {
 				Level++;
-				clears-=10;
+				clears = 0;
 				t.stop();
-				t = new Timer(1000/(3+(2*Level/5)), this);
+				t = new Timer(1000 / (3 + (2 * Level / 5)), this);
 				t.start();
 			}
-			grid.update(g, Hold, Next);
+
+			grid.update(g, Hold, Next, font, Score, Level, 5 - clears);
 		}
 	}
+
 	public void end(Graphics g) {
-		grid.update(g, Hold, Next);
+		grid.update(g, Hold, Next, font, Score, Level, clears);
 		g.setColor(Color.RED);
-			g.fillRect(0, endy, MainClass.framewidth, MainClass.frameheight);
-		}
+		g.fillRect(0, endy, MainClass.framewidth, MainClass.frameheight);
+	}
 
 	public String NewBlock() {
 		String block;
 		int r = new Random().nextInt(7);
 		object.rotation = 0;
-		for(int i = 0; i < grid.height; i++) {
-			if(grid.checkRow(i) == true) {
+		for (int i = 0; i < grid.height; i++) {
+			if (grid.checkRow(i) == true) {
 				grid.clear(i);
 				clears++;
+				streak++;
+				System.out.println(streak);
+			}
+		}
+		System.out.println("test");
+		if (streak > 0) {
+			if (streak == 4) {
+				System.out.println("tetris");
+				for (int i = 0; i < streak; i++) {
+					if (tetrisstreak == false) {
+						Score += 200;
+					} else if (tetrisstreak == true) {
+						Score += 300;
+					}
+					streak--;
+					if (streak == 0) {
+						break;
+					}
+				}
+				tetrisstreak = true;
+			} else {
+				for (int i = 0; i < streak; i++) {
+					Score += 100;
+					streak--;
+					if (streak == 0) {
+						break;
+					}
+				}
+				tetrisstreak = false;
 			}
 		}
 		if (r == 0) {
-
 
 			block = "line";
 
 		} else if (r == 1) {
 
-
 			block = "square";
 
 		} else if (r == 2) {
-
 
 			block = "s";
 
 		} else if (r == 3) {
 
-
 			block = "z";
 
 		} else if (r == 4) {
-
 
 			block = "j";
 
 		} else if (r == 5) {
 
-
 			block = "l";
 
 		} else {
-
 
 			block = "t";
 
 		}
 		return block;
 	}
+
 	public void SetBlock() {
-		if(object.currentState.equalsIgnoreCase("t")) {
+		if (object.currentState.equalsIgnoreCase("t")) {
 			object = new TBlock(grid);
 			object.currentState = "t";
 		}
-		if(object.currentState.equalsIgnoreCase("line")) {
+		if (object.currentState.equalsIgnoreCase("line")) {
 			object = new LineBlock(grid);
 			object.currentState = "line";
 		}
-		if(object.currentState.equalsIgnoreCase("l")) {
+		if (object.currentState.equalsIgnoreCase("l")) {
 			object = new LBlock(grid);
 			object.currentState = "l";
 		}
-		if(object.currentState.equalsIgnoreCase("j")) {
+		if (object.currentState.equalsIgnoreCase("j")) {
 			object = new JBlock(grid);
 			object.currentState = "j";
 		}
-		if(object.currentState.equalsIgnoreCase("z")) {
+		if (object.currentState.equalsIgnoreCase("z")) {
 			object = new ZBlock(grid);
 			object.currentState = "z";
 		}
-		if(object.currentState.equalsIgnoreCase("s")) {
+		if (object.currentState.equalsIgnoreCase("s")) {
 			object = new SBlock(grid);
 			object.currentState = "s";
 		}
-		if(object.currentState.equalsIgnoreCase("square")) {
+		if (object.currentState.equalsIgnoreCase("square")) {
 			object = new SquareBlock(grid);
 			object.currentState = "square";
 		}
 
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (GameState.equalsIgnoreCase("Lose")) {
-			endy-=1;
-			repaint();
+			for (int i = 0; i < 5; i++) {
+				endy -= 5;
+				repaint();
+			}
 		}
 		if (GameState.equalsIgnoreCase("Game")) {
 
@@ -161,18 +195,28 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 			} else {
 
-				for (int i = 0; i < 4; i++) {
-					if (object.yPos[i] <= 1 && grid.grid[object.xPos[i]][object.yPos[i]]) {
-						GameState = "Lose";
+				for (int i1 = 0; i1 < 9; i1++) {
+					if (grid.grid[i1][0]) {
+						for (int i = 0; i < 4; i++) {
+							if (object.xPos[i] == i1) {
+								GameState = "Lose";
+								break;
+							} else {
+
+							}
+						}
 					}
 				}
+				/*
+				 * for (int i = 0; i < 4; i++) { if (object.yPos[i] <= 1 &&
+				 * grid.grid[object.xPos[i]][object.yPos[i]]) { GameState = "Lose"; } }
+				 */
 				for (int i = 0; i < 4; i++) {
 					grid.grid[object.xPos[i]][object.yPos[i]] = true;
 				}
-				System.out.println(Next);
-				if(Next.equalsIgnoreCase(null)) {
+				if (Next.equalsIgnoreCase(null)) {
 				}
-				if(Next.equalsIgnoreCase("blank")) {
+				if (Next.equalsIgnoreCase("blank")) {
 					Next = NewBlock();
 				}
 				object.currentState = Next;
@@ -193,63 +237,61 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		object.update("check");
-		// TODO Auto-generated method stub
-		if (e.getKeyCode() == KeyEvent.VK_LEFT && object.canMoveLeft == true) {
+		if (GameState.equalsIgnoreCase("Game")) {
 			object.update("check");
-			if (object.canMoveLeft == true) {
+			// TODO Auto-generated method stub
+			if (e.getKeyCode() == KeyEvent.VK_LEFT && object.canMoveLeft == true) {
+				object.update("check");
+				if (object.canMoveLeft == true) {
 					object.moveLeft();
 
-			}
-		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && object.canMoveRight == true) {
-			object.update("check");
-			if (object.canMoveRight == true) {
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT && object.canMoveRight == true) {
+				object.update("check");
+				if (object.canMoveRight == true) {
 					object.moveRight();
-			}
-		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-			object.update("down");
-		} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			object.update("space");
-		} else if (e.getKeyCode() == KeyEvent.VK_UP) {
-			for(int i = 0;i < 4; i++) {
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+				object.update("down");
+			} else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				object.update("space");
+			} else if (e.getKeyCode() == KeyEvent.VK_UP) {
+				for (int i = 0; i < 4; i++) {
 					object.checkLeft();
 					object.checkRight();
-					if(object.canRotate == true) {
-					object.update("r");
+					if (object.canRotate == true) {
+						object.update("r");
 					}
 					break;
-			}
-				
-			
+				}
 
-		}
-		else if(e.getKeyCode() == KeyEvent.VK_C) {
-			if(canHold == true) {
-			for(int i = 0; i < 4; i++)
-			object.grid.grid[object.xPos[i]][object.yPos[i]] = false;
-			if(Next.equalsIgnoreCase("blank")) {
-				Next = NewBlock();
+			} else if (e.getKeyCode() == KeyEvent.VK_C) {
+				if (canHold == true) {
+					for (int i = 0; i < 4; i++)
+						object.grid.grid[object.xPos[i]][object.yPos[i]] = false;
+					if (Next.equalsIgnoreCase("blank")) {
+						Next = NewBlock();
+					}
+					if (Hold.equalsIgnoreCase("blank")) {
+						Hold = object.currentState;
+						Hold2 = object.currentState;
+						object.currentState = Next;
+						Next = NewBlock();
+						SetBlock();
+					} else {
+						Hold2 = Hold;
+						Hold = object.currentState;
+						object.currentState = Hold2;
+						Hold2 = Hold;
+						SetBlock();
+					}
+					canHold = false;
+					for (int i = 0; i < 4; i++)
+						object.grid.grid[object.xPos[i]][object.yPos[i]] = true;
+				}
 			}
-			if(Hold.equalsIgnoreCase("blank")) {
-				Hold = object.currentState;
-				Hold2 = object.currentState;
-				object.currentState = Next;
-				Next = NewBlock();
-				SetBlock();
-			}
-			else {
-				Hold2 = Hold;
-				Hold = object.currentState;
-				object.currentState = Hold2;
-				Hold2 = Hold;
-				SetBlock();
-			}
-			canHold = false;
-			for(int i = 0; i < 4; i++)
-			object.grid.grid[object.xPos[i]][object.yPos[i]] = true;
+			repaint();
 		}
-		}
-		repaint();
 	}
 
 	@Override

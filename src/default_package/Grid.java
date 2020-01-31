@@ -26,7 +26,7 @@ public class Grid {
 
 	}
 
-	public void update(Graphics g, String Hold, String Next) {
+	public void update(Graphics g, String Hold, String Next, Font font, int Score, int Level, int Lines) {
 		counter = 0;
 		counterx = 0;
 		g.setColor(Color.BLACK);
@@ -37,8 +37,20 @@ public class Grid {
 				g.drawRect(i * 30, z * 30 - 30, UnitSize, UnitSize);
 			}
 			g.setColor(Color.BLUE);
+			g.setFont(font);
+			g.drawString("Hold", 330, 70);
 			g.drawRect(330, 80, UnitSize * 4 + 40, UnitSize * 3 + 40);
+			g.drawString("Next", 330, 280);
 			g.drawRect(330, 290, UnitSize * 4 + 40, UnitSize * 3 + 40);
+			g.drawString("Score", 330, 530);
+			g.drawRect(330, 540, UnitSize * 4 + 40, 30);
+			g.drawString("" + Score, 340, 565);
+			g.drawString("Level", 330, 600);
+			g.drawRect(330, 610, UnitSize * 4 + 40, 30);
+			g.drawString("" + Level, 340, 635);
+			g.drawString("Lines Left", 330, 670);
+			g.drawRect(330, 680, UnitSize * 4 + 40, 30);
+			g.drawString("" + Lines, 340, 705);
 			// 160 by 130
 			// 330-490, 80-210
 		}
@@ -59,12 +71,12 @@ public class Grid {
 		if (Hold.equalsIgnoreCase("square")) {
 			for (int i = 0; i < 4; i++) {
 				if (i == 2) {
-					counterx = 0;
-					counter = 1;
+					counterx = 1;
+					counter = 0;
 				}
 				g.setColor(Color.CYAN);
 				g.fillRect(counterx * 30 + 381, counter * 30 + 116, UnitSize - 2, UnitSize - 2);
-				counterx++;
+				counter++;
 			}
 		}
 		if (Hold.equalsIgnoreCase("j")) {
@@ -131,13 +143,8 @@ public class Grid {
 		if (Next.equalsIgnoreCase("square")) {
 			for (int i = 0; i < 4; i++) {
 				if (i == 2) {
-					if (counterx == 0 && counter == 1) {
-
-					} else {
-						counterx = 0;
-						counter = 1;
-					}
-
+					counterx = 0;
+					counter = 1;
 				}
 				g.setColor(Color.CYAN);
 				g.fillRect(counterx * 30 + 381, counter * 30 + 326, UnitSize - 2, UnitSize - 2);
