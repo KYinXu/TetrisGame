@@ -117,6 +117,40 @@ public class GameObject {
 		for(int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;
 		}
+		if(currentState == "z") {
+
+			if(rotation == 0) {
+				if(xPos[1]-1 < 0 || xPos[3]-2 < 0) {
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+			}
+			else if(rotation == 1) {
+				if(xPos[0] - 1 < 0) {
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+
+			}
+		}
+		if(currentState == "s") {
+			if(rotation == 0) {
+				if(xPos[2]-1 < 0 || xPos[3]-1 < 0) {
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+			}
+			else if(rotation == 1) {
+				
+
+			}
+		}
 			if (currentState == "j") {
 
 				if(rotation == 0) {
@@ -236,6 +270,36 @@ public class GameObject {
 		for(int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;
 		}
+		if(currentState == "z") {
+			if(rotation == 0) {
+				if(xPos[0] + 1 > 9) {
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+			}
+			else if(rotation == 1) {
+				if(xPos[1] + 1 > 9 || xPos[3] + 2 > 9) {
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+			}
+		}
+		if(currentState == "s") {
+			if(rotation == 0) {
+			}
+			else if(rotation == 1) {
+				if(xPos[2] + 1 > 9 || xPos[3] + 1 > 9) {
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+			}
+		}
 		if (currentState == "j") {
 			if(rotation == 0) {
 				if(xPos[1] + 1 > 9) {
@@ -296,7 +360,6 @@ public class GameObject {
 				}
 			}
 			else if(rotation == 3) {
-				canRotate = true;
 			}
 		}
 		if(currentState == "line") {

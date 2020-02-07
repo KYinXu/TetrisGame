@@ -15,6 +15,8 @@ import javax.swing.Timer;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
+	//https://ia800504.us.archive.org/33/items/TetrisThemeMusic/Tetris.mp3
+	//https://github.com/dencee/Level2GameTemplate/blob/master/src/Audio.java
 	String GameState = "Game";
 	long updateTimer = 0;
 	int TimeToUpdate = 1;
@@ -26,6 +28,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	String Hold = "blank";
 	String Hold2 = "blank";
 	Font font;
+	int streakcolor;
 	int Score = 0;
 	boolean canHold;
 	int endy;
@@ -34,6 +37,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int clears = 0;
 
 	public GamePanel() {
+		
 		font = new Font("Arial", Font.BOLD, 24);
 		t.start();
 		Level = 1;
@@ -48,6 +52,8 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(Graphics g) {
 		g.drawString("", 100, 100);
 		if (GameState.equalsIgnoreCase("Lose")) {
+			g.setColor(Color.RED);
+			g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
 			if (endy > 0) {
 				end(g);
 			} else {
@@ -63,12 +69,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				t.start();
 			}
 
-			grid.update(g, Hold, Next, font, Score, Level, 5 - clears);
+			grid.update(g, Hold, Next, font, Score, Level, 5 - clears, tetrisstreak, streakcolor);
+
 		}
 	}
 
 	public void end(Graphics g) {
-		grid.update(g, Hold, Next, font, Score, Level, clears);
+		grid.update(g, Hold, Next, font, Score, Level, clears, tetrisstreak, streakcolor);
 		g.setColor(Color.RED);
 		g.fillRect(0, endy, MainClass.framewidth, MainClass.frameheight);
 	}
@@ -89,17 +96,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (streak > 0) {
 			if (streak == 4) {
 				System.out.println("tetris");
-				for (int i = 0; i < streak; i++) {
 					if (tetrisstreak == false) {
-						Score += 200;
+						Score += 800;
 					} else if (tetrisstreak == true) {
-						Score += 300;
+						Score += 1200;
 					}
-					streak--;
-					if (streak == 0) {
-						break;
-					}
-				}
+					streak=0;
 				tetrisstreak = true;
 			} else {
 				for (int i = 0; i < streak; i++) {
@@ -198,7 +200,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for (int i1 = 0; i1 < 9; i1++) {
 					if (grid.grid[i1][0]) {
 						for (int i = 0; i < 4; i++) {
-							if (object.xPos[i] == i1) {
+							if (object.xPos[i] == i1 && object.isActive == false) {
 								GameState = "Lose";
 								break;
 							} else {

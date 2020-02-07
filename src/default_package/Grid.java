@@ -26,7 +26,7 @@ public class Grid {
 
 	}
 
-	public void update(Graphics g, String Hold, String Next, Font font, int Score, int Level, int Lines) {
+	public void update(Graphics g, String Hold, String Next, Font font, int Score, int Level, int Lines, boolean streak, int streakcolor) {
 		counter = 0;
 		counterx = 0;
 		g.setColor(Color.BLACK);
@@ -51,6 +51,17 @@ public class Grid {
 			g.drawString("Lines Left", 330, 670);
 			g.drawRect(330, 680, UnitSize * 4 + 40, 30);
 			g.drawString("" + Lines, 340, 705);
+			g.setColor(Color.darkGray);
+			g.drawString("Tetris Streak", 333, 483);
+			g.setColor(Color.BLUE);
+			if(streakcolor == 0) {
+				g.setColor(Color.CYAN);
+			}
+			if(streak == true) {
+				g.drawString("Tetris Streak", 330, 480);
+
+			}
+			g.setColor(Color.BLUE);
 			// 160 by 130
 			// 330-490, 80-210
 		}
@@ -134,6 +145,8 @@ public class Grid {
 				counterx++;
 			}
 		}
+		counter = 0;
+		counterx = 0;
 		if (Next.equalsIgnoreCase("line")) {
 			for (int i = 0; i < 4; i++) {
 				g.setColor(Color.CYAN);
@@ -151,8 +164,6 @@ public class Grid {
 				counterx++;
 			}
 		}
-		counter = 0;
-		counterx = 0;
 		if (Next.equalsIgnoreCase("j")) {
 			for (int i = 0; i < 4; i++) {
 				if (i == 3) {
