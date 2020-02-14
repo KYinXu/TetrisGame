@@ -1,3 +1,4 @@
+package default_package;
 import java.applet.AudioClip;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

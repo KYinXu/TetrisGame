@@ -15,19 +15,23 @@ import javax.swing.Timer;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements ActionListener, KeyListener {
-	//https://ia800504.us.archive.org/33/items/TetrisThemeMusic/Tetris.mp3
-	//https://github.com/dencee/Level2GameTemplate/blob/master/src/Audio.java
-	String GameState = "Game";
+	// https://ia800504.us.archive.org/33/items/TetrisThemeMusic/Tetris.mp3
+	// https://github.com/dencee/Level2GameTemplate/blob/master/src/Audio.java
+	String GameState = "Title";
 	long updateTimer = 0;
 	int TimeToUpdate = 1;
 	int streak = 0;
+	int audiotest = 0;
 	boolean tetrisstreak;
 	GameObject object;
 	Grid grid;
 	String Next = "blank";
 	String Hold = "blank";
 	String Hold2 = "blank";
+	Audio Audio = new Audio("Tetris.mp3");
 	Font font;
+	Font titleFont;
+	Font backTitleFont;
 	int streakcolor;
 	int Score = 0;
 	boolean canHold;
@@ -37,8 +41,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int clears = 0;
 
 	public GamePanel() {
-		
 		font = new Font("Arial", Font.BOLD, 24);
+		titleFont = new Font("Arial", Font.BOLD, 64);
+		backTitleFont = new Font("Arial", Font.BOLD, 68);
 		t.start();
 		Level = 1;
 		grid = new Grid(10, 26);
@@ -46,38 +51,58 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		object.currentState = "line";
 		canHold = true;
 		Next = NewBlock();
-		endy = MainClass.frameheight;
+
 	}
 
 	public void paintComponent(Graphics g) {
 		g.drawString("", 100, 100);
-		if (GameState.equalsIgnoreCase("Lose")) {
-			g.setColor(Color.RED);
+		if (GameState.equalsIgnoreCase("Title")) {
+			g.setColor(Color.BLACK);
 			g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
-			if (endy > 0) {
-				end(g);
-			} else {
-				g.setColor(Color.RED);
-				g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
-			}
+			g.setColor(Color.BLUE);
+			g.fillRect(MainClass.framewidth / 2 - 85, 195, 170, 60);
+			g.fillRect(MainClass.framewidth / 2 - 30, 250, 60, 60);
+			g.setColor(Color.CYAN);
+			g.fillRect(MainClass.framewidth / 2 - 80, 200, 50, 50);
+			g.fillRect(MainClass.framewidth / 2 - 25, 200, 50, 50);
+			g.fillRect(MainClass.framewidth / 2 + 30, 200, 50, 50);
+			g.fillRect(MainClass.framewidth / 2 - 25, 255, 50, 50);
+			g.setColor(Color.BLUE);
+			g.fillRoundRect(MainClass.framewidth / 2 - 105, 320, 210, 110, 500, 200);
+			g.setColor(Color.CYAN);
+			g.fillRoundRect(MainClass.framewidth / 2 - 100, 325, 200, 100, 500, 200);
+			g.setColor(Color.BLUE);
+			g.setFont(titleFont);
+			g.drawString("Tetris", MainClass.framewidth / 2 - 85, 400);
+			g.fillRect(0, 0, MainClass.framewidth, 10);
+			g.fillRect(0, 0, 10, MainClass.frameheight);
+			g.fillRect(MainClass.framewidth - 10, 0, 10, MainClass.frameheight);
+			g.fillRect(0, MainClass.frameheight - 10, MainClass.framewidth, 10);
+			g.setFont(font);
+			g.drawString("Press Space to Play", MainClass.framewidth / 2 - 115, 500);
 		} else {
-			if (clears >= 5) {
-				Level++;
-				clears = 0;
-				t.stop();
-				t = new Timer(1000 / (3 + (2 * Level / 5)), this);
-				t.start();
+			if (GameState.equalsIgnoreCase("Lose")) {
+				Audio.stop(); 
+				grid.end(g, titleFont, font, Score);
+				/*
+				 * g.setColor(Color.RED); g.fillRect(0, 0, MainClass.framewidth,
+				 * MainClass.frameheight); if (endy > 0) { end(g); } else {
+				 * g.setColor(Color.RED); g.fillRect(0, 0, MainClass.framewidth,
+				 * MainClass.frameheight); }
+				 */
+			} else {
+				if (clears >= 5) {
+					Level++;
+					clears = 0;
+					t.stop();
+					t = new Timer(1000 / (3 + (2 * Level / 5)), this);
+					t.start();
+				}
+
+				grid.update(g, object, Hold, Next, font, Score, Level, 5 - clears, tetrisstreak, streakcolor);
+
 			}
-
-			grid.update(g, Hold, Next, font, Score, Level, 5 - clears, tetrisstreak, streakcolor);
-
 		}
-	}
-
-	public void end(Graphics g) {
-		grid.update(g, Hold, Next, font, Score, Level, clears, tetrisstreak, streakcolor);
-		g.setColor(Color.RED);
-		g.fillRect(0, endy, MainClass.framewidth, MainClass.frameheight);
 	}
 
 	public String NewBlock() {
@@ -92,16 +117,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				System.out.println(streak);
 			}
 		}
-		System.out.println("test");
 		if (streak > 0) {
 			if (streak == 4) {
-				System.out.println("tetris");
-					if (tetrisstreak == false) {
-						Score += 800;
-					} else if (tetrisstreak == true) {
-						Score += 1200;
-					}
-					streak=0;
+				if (tetrisstreak == false) {
+					Score += 800;
+				} else if (tetrisstreak == true) {
+					Score += 1200;
+				}
+				streak = 0;
 				tetrisstreak = true;
 			} else {
 				for (int i = 0; i < streak; i++) {
@@ -182,10 +205,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (GameState.equalsIgnoreCase("Lose")) {
-			for (int i = 0; i < 5; i++) {
-				endy -= 5;
-				repaint();
-			}
 		}
 		if (GameState.equalsIgnoreCase("Game")) {
 
@@ -293,6 +312,13 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 			repaint();
+		} else {
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				GameState = "Game";
+				grid.reset();
+				Audio.play(10000);
+			}
+
 		}
 	}
 

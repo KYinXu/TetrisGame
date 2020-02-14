@@ -15,6 +15,7 @@ public class SBlock extends GameObject{
 			 	1  3
 			 0  2
 			 */
+		//GREEN
 		//still working on S Block
 		for(int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;

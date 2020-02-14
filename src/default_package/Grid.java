@@ -20,13 +20,25 @@ public class Grid {
 		this.height = h;
 	}
 
-	public void end(Graphics g) {
-		g.setColor(Color.BLACK);
+	public void end(Graphics g, Font titleFont, Font font, int Score) {
+		g.setColor(Color.RED);
 		g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
-
+		g.setFont(titleFont);
+		g.setColor(Color.BLACK);
+		g.drawString("GAME OVER", MainClass.framewidth/2-195, 350);
+		g.setFont(font);
+		g.drawString("Press Space to Restart", MainClass.framewidth/2-130, 400);
+		g.drawString("Your score was " + Score, MainClass.framewidth/2-100, 450);
 	}
-
-	public void update(Graphics g, String Hold, String Next, Font font, int Score, int Level, int Lines, boolean streak, int streakcolor) {
+	public void reset() {
+		for(int i = 0; i < width; i ++) {
+			for(int j = 0; j < height; j ++) {
+				grid[i][j] = false;
+			}
+		}
+	}
+	public void update(Graphics g, GameObject object, String Hold, String Next, Font font, int Score, int Level,
+			int Lines, boolean streak, int streakcolor) {
 		counter = 0;
 		counterx = 0;
 		g.setColor(Color.BLACK);
@@ -54,10 +66,10 @@ public class Grid {
 			g.setColor(Color.darkGray);
 			g.drawString("Tetris Streak", 333, 483);
 			g.setColor(Color.BLUE);
-			if(streakcolor == 0) {
+			if (streakcolor == 0) {
 				g.setColor(Color.CYAN);
 			}
-			if(streak == true) {
+			if (streak == true) {
 				g.drawString("Tetris Streak", 330, 480);
 
 			}

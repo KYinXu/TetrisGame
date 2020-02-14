@@ -17,7 +17,7 @@ public class ZBlock extends GameObject{
 			 0  2  
 			    1  3
 			 */
-
+//RED
 	for(int i = 0; i < 4; i++) {
 		grid.grid[xPos[i]][yPos[i]] = true;
 	}

@@ -17,6 +17,7 @@ public class LBlock extends GameObject{
 		 2
 		 0 3
 		*/
+		//MAGENTA
 		for(int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;
 		}

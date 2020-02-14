@@ -17,6 +17,7 @@ public class JBlock extends GameObject{
 		  2
 		0 3
 		*/
+		//ORANGE
 		for(int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;
 		}

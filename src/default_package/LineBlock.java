@@ -16,6 +16,7 @@ public class LineBlock extends GameObject {
 			yPos[i] = 0;
 
 			grid.grid[xPos[i]][yPos[i]] = true;
+			//CYAN
 		}
 	}
 }
