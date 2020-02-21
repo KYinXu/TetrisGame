@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	int streak = 0;
 	int audiotest = 0;
 	boolean tetrisstreak;
+	boolean blocker = false;
 	GameObject object;
 	Grid grid;
 	String Next = "blank";
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	boolean canHold;
 	int endy;
 	Timer t = new Timer(1000 / 3, this);
+	Timer z = new Timer(84000, this);
 	int Level;
 	int clears = 0;
 
@@ -80,7 +82,34 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.fillRect(0, MainClass.frameheight - 10, MainClass.framewidth, 10);
 			g.setFont(font);
 			g.drawString("Press Space to Play", MainClass.framewidth / 2 - 115, 500);
-		} else {
+			g.drawString("Press Enter for Instructions", MainClass.framewidth/2 - 155, 550);
+		} else if(GameState.equalsIgnoreCase("paused")){
+			grid.update(g, null, Hold, Next, font, Score, Level, 5 - clears, tetrisstreak, streakcolor);
+			g.setFont(titleFont);
+			g.setColor(Color.BLUE);
+			g.fillRect(MainClass.framewidth/2 - 155, MainClass.frameheight/2 - 45, 310, 90);
+			g.setColor(Color.BLACK);
+			g.fillRect(MainClass.framewidth/2 - 150, MainClass.frameheight/2 - 40, 300, 80);
+			g.setColor(Color.BLUE);
+			g.drawString("PAUSED", MainClass.framewidth/2 - 135, MainClass.frameheight/2+24);
+		}
+		else if(GameState.equalsIgnoreCase("Controls")) {
+			g.setColor(Color.BLACK);
+			g.setColor(Color.BLUE);
+			g.fillRect(0, 0, MainClass.framewidth, 10);
+			g.fillRect(0, 0, 10, MainClass.frameheight);
+			g.fillRect(MainClass.framewidth - 10, 0, 10, MainClass.frameheight);
+			g.fillRect(0, MainClass.frameheight - 10, MainClass.framewidth, 10);
+			g.drawString("Move Left", 20, 50);
+			g.drawString("Move Right", 20, 150);
+			g.drawString("Move Down", 20, 250);
+			g.drawString("Rotate", 20, 350);
+			g.drawString("Hold Piece", 20, 450);
+			g.drawString("Place Piece", 20, 550);
+			g.drawString("Pause", 20, 650);
+		}
+		else {
+		
 			if (GameState.equalsIgnoreCase("Lose")) {
 				Audio.stop(); 
 				grid.end(g, titleFont, font, Score);
@@ -95,7 +124,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					Level++;
 					clears = 0;
 					t.stop();
-					t = new Timer(1000 / (3 + (2 * Level / 5)), this);
+					t = new Timer(1000 / (3 + (3 * Level / 5)), this);
 					t.start();
 				}
 
@@ -203,7 +232,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
+		if(e.getSource() == t) {
 		if (GameState.equalsIgnoreCase("Lose")) {
 		}
 		if (GameState.equalsIgnoreCase("Game")) {
@@ -248,6 +277,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			repaint();
 		}
 	}
+		else if(e.getSource() == z) {
+			Audio.play(84);
+			System.out.println("loop Audio");
+		}
+	}
 
 	// TODO Auto-generated method stub
 	@Override
@@ -261,6 +295,12 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 		if (GameState.equalsIgnoreCase("Game")) {
 			object.update("check");
 			// TODO Auto-generated method stub
+			if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+				t.stop();
+				z.stop();
+				Audio.stop();
+				GameState = "paused";
+			}
 			if (e.getKeyCode() == KeyEvent.VK_LEFT && object.canMoveLeft == true) {
 				object.update("check");
 				if (object.canMoveLeft == true) {
@@ -280,8 +320,9 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				for (int i = 0; i < 4; i++) {
 					object.checkLeft();
 					object.checkRight();
-					if (object.canRotate == true) {
+					if (object.canRotate == true && blocker == false) {
 						object.update("r");
+						blocker = true;
 					}
 					break;
 				}
@@ -296,7 +337,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					if (Hold.equalsIgnoreCase("blank")) {
 						Hold = object.currentState;
 						Hold2 = object.currentState;
-						object.currentState = Next;
 						Next = NewBlock();
 						SetBlock();
 					} else {
@@ -312,19 +352,30 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 			repaint();
-		} else {
+		}
+		else if(GameState.equalsIgnoreCase("paused")) {
+			System.out.println("testtest");
+				z.restart();
+				t.start();
+				Audio.play(84);
+				GameState = "Game";
+		}
+		else {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 				GameState = "Game";
 				grid.reset();
-				Audio.play(10000);
+				z.start();
+				Audio.play(84);
 			}
-
+			if(GameState.equalsIgnoreCase("Title") && e.getKeyCode() == KeyEvent.VK_ENTER) {
+				GameState.equalsIgnoreCase("Controls");
+				System.out.println("controls");
+			}
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		blocker = false;
 	}
 }
