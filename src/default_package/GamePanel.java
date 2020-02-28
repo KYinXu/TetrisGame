@@ -82,36 +82,72 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.fillRect(0, MainClass.frameheight - 10, MainClass.framewidth, 10);
 			g.setFont(font);
 			g.drawString("Press Space to Play", MainClass.framewidth / 2 - 115, 500);
-			g.drawString("Press Enter for Instructions", MainClass.framewidth/2 - 155, 550);
-		} else if(GameState.equalsIgnoreCase("paused")){
+			g.drawString("Press Enter for Instructions", MainClass.framewidth / 2 - 155, 550);
+		} else if (GameState.equalsIgnoreCase("paused")) {
 			grid.update(g, null, Hold, Next, font, Score, Level, 5 - clears, tetrisstreak, streakcolor);
 			g.setFont(titleFont);
 			g.setColor(Color.BLUE);
-			g.fillRect(MainClass.framewidth/2 - 155, MainClass.frameheight/2 - 45, 310, 90);
+			g.fillRect(MainClass.framewidth / 2 - 155, MainClass.frameheight / 2 - 45, 310, 90);
 			g.setColor(Color.BLACK);
-			g.fillRect(MainClass.framewidth/2 - 150, MainClass.frameheight/2 - 40, 300, 80);
+			g.fillRect(MainClass.framewidth / 2 - 150, MainClass.frameheight / 2 - 40, 300, 80);
 			g.setColor(Color.BLUE);
-			g.drawString("PAUSED", MainClass.framewidth/2 - 135, MainClass.frameheight/2+24);
-		}
-		else if(GameState.equalsIgnoreCase("Controls")) {
+			g.drawString("PAUSED", MainClass.framewidth / 2 - 135, MainClass.frameheight / 2 + 24);
+		} else if (GameState.equalsIgnoreCase("Controls")) {
+			g.setFont(font);
 			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, MainClass.framewidth, MainClass.frameheight);
 			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, MainClass.framewidth, 10);
 			g.fillRect(0, 0, 10, MainClass.frameheight);
 			g.fillRect(MainClass.framewidth - 10, 0, 10, MainClass.frameheight);
 			g.fillRect(0, MainClass.frameheight - 10, MainClass.framewidth, 10);
 			g.drawString("Move Left", 20, 50);
+			g.fillRect(20, 65, 50, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(22, 67, 46, 46);
+			g.setColor(Color.BLUE);
+			g.drawString("⇦", 32, 100);
 			g.drawString("Move Right", 20, 150);
+			g.fillRect(20, 165, 50, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(22, 167, 46, 46);
+			g.setColor(Color.BLUE);
+			g.drawString("⇨", 32, 200);
 			g.drawString("Move Down", 20, 250);
+			g.fillRect(20, 265, 50, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(22, 267, 46, 46);
+			g.setColor(Color.BLUE);
+			g.drawString("⇩", 32, 300);
 			g.drawString("Rotate", 20, 350);
+			g.fillRect(20, 365, 50, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(22, 367, 46, 46);
+			g.setColor(Color.BLUE);
+			g.drawString("⇧", 32, 400);
 			g.drawString("Hold Piece", 20, 450);
+			g.fillRect(20, 465, 50, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(22, 467, 46, 46);
+			g.setColor(Color.BLUE);
+			g.drawString("C", 35, 500);
 			g.drawString("Place Piece", 20, 550);
+			g.fillRect(20, 565, 300, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(22, 567, 296, 46);
+			g.setColor(Color.BLUE);
+			g.drawString("_____________________", 33, 600);
 			g.drawString("Pause", 20, 650);
-		}
-		else {
-		
+			g.fillRect(20, 665, 50, 50);
+			g.setColor(Color.BLACK);
+			g.fillRect(22, 667, 46, 46);
+			g.setColor(Color.BLUE);
+			g.drawString("esc", 25, 695);
+			g.drawString("Press escape to return to title", 150, 750);
+		} else {
+
 			if (GameState.equalsIgnoreCase("Lose")) {
-				Audio.stop(); 
+				Audio.stop();
 				grid.end(g, titleFont, font, Score);
 				/*
 				 * g.setColor(Color.RED); g.fillRect(0, 0, MainClass.framewidth,
@@ -232,52 +268,51 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == t) {
-		if (GameState.equalsIgnoreCase("Lose")) {
-		}
-		if (GameState.equalsIgnoreCase("Game")) {
+		if (e.getSource() == t) {
+			if (GameState.equalsIgnoreCase("Lose")) {
+			}
+			if (GameState.equalsIgnoreCase("Game")) {
 
-			object.update("check");
-
-			if (object.isActive == true) {
-				object.update("down");
 				object.update("check");
 
-			} else {
+				if (object.isActive == true) {
+					object.update("down");
+					object.update("check");
 
-				for (int i1 = 0; i1 < 9; i1++) {
-					if (grid.grid[i1][0]) {
-						for (int i = 0; i < 4; i++) {
-							if (object.xPos[i] == i1 && object.isActive == false) {
-								GameState = "Lose";
-								break;
-							} else {
+				} else {
 
+					for (int i1 = 0; i1 < 9; i1++) {
+						if (grid.grid[i1][0]) {
+							for (int i = 0; i < 4; i++) {
+								if (object.xPos[i] == i1 && object.isActive == false) {
+									GameState = "Lose";
+									break;
+								} else {
+
+								}
 							}
 						}
 					}
-				}
-				/*
-				 * for (int i = 0; i < 4; i++) { if (object.yPos[i] <= 1 &&
-				 * grid.grid[object.xPos[i]][object.yPos[i]]) { GameState = "Lose"; } }
-				 */
-				for (int i = 0; i < 4; i++) {
-					grid.grid[object.xPos[i]][object.yPos[i]] = true;
-				}
-				if (Next.equalsIgnoreCase(null)) {
-				}
-				if (Next.equalsIgnoreCase("blank")) {
+					/*
+					 * for (int i = 0; i < 4; i++) { if (object.yPos[i] <= 1 &&
+					 * grid.grid[object.xPos[i]][object.yPos[i]]) { GameState = "Lose"; } }
+					 */
+					for (int i = 0; i < 4; i++) {
+						grid.grid[object.xPos[i]][object.yPos[i]] = true;
+					}
+					if (Next.equalsIgnoreCase(null)) {
+					}
+					if (Next.equalsIgnoreCase("blank")) {
+						Next = NewBlock();
+					}
+					object.currentState = Next;
 					Next = NewBlock();
+					SetBlock();
+					canHold = true;
 				}
-				object.currentState = Next;
-				Next = NewBlock();
-				SetBlock();
-				canHold = true;
+				repaint();
 			}
-			repaint();
-		}
-	}
-		else if(e.getSource() == z) {
+		} else if (e.getSource() == z) {
 			Audio.play(84);
 			System.out.println("loop Audio");
 		}
@@ -292,10 +327,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		if (GameState.equalsIgnoreCase("Controls") && e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			GameState = "Title";
+			repaint();
+		}
 		if (GameState.equalsIgnoreCase("Game")) {
 			object.update("check");
 			// TODO Auto-generated method stub
-			if(e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 				t.stop();
 				z.stop();
 				Audio.stop();
@@ -352,30 +391,51 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 			repaint();
-		}
-		else if(GameState.equalsIgnoreCase("paused")) {
+		} else if (GameState.equalsIgnoreCase("paused")) {
 			System.out.println("testtest");
-				z.restart();
-				t.start();
-				Audio.play(84);
-				GameState = "Game";
-		}
-		else {
+			z.restart();
+			t.start();
+			Audio.play(84);
+			GameState = "Game";
+		} else {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if(GameState.equalsIgnoreCase("Controls")) {
+					
+				}
+				else if(GameState.equalsIgnoreCase("Title")){
 				GameState = "Game";
 				grid.reset();
 				z.start();
 				Audio.play(84);
+				}
 			}
-			if(GameState.equalsIgnoreCase("Title") && e.getKeyCode() == KeyEvent.VK_ENTER) {
+			else if(GameState.equalsIgnoreCase("Lose")) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					GameState = "Game";
+					grid.reset();
+					z.start();
+					Audio.play(84);
+					Score = 0;
+					clears = 0;
+					Level = 0;
+				}
+			}
+			if (e.getKeyCode() == KeyEvent.VK_ENTER && GameState.equalsIgnoreCase("Title")) {
+				System.out.println("test");
+				GameState = "Controls";
+				repaint();
+			}
+			if (GameState.equalsIgnoreCase("Title") && e.getKeyCode() == KeyEvent.VK_ENTER) {
 				GameState.equalsIgnoreCase("Controls");
 				System.out.println("controls");
 			}
 		}
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+
 		blocker = false;
 	}
 }
