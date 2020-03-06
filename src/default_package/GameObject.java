@@ -117,6 +117,16 @@ public class GameObject {
 		for (int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;
 		}
+		if(currentState == "t") {
+			if(rotation == 3) {
+				if(xPos[2] - 1 < 0){
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+			}
+		}
 		if (currentState == "z") {
 
 			if (rotation == 0) {
@@ -242,6 +252,16 @@ public class GameObject {
 		}
 		for (int i = 0; i < 4; i++) {
 			grid.grid[xPos[i]][yPos[i]] = true;
+		}
+		if(currentState == "t") {
+			if(rotation == 1) {
+				if(xPos[2] + 1 > 9){
+					canRotate = false;
+				}
+				else {
+					canRotate = true;
+				}
+			}
 		}
 		if (currentState == "z") {
 			if (rotation == 0) {
@@ -394,6 +414,8 @@ public class GameObject {
 		}
 		if (direction.equalsIgnoreCase("r")) {
 			update("check");
+			System.out.println(canRotate);
+			System.out.println("testeets");
 			if (currentState.equalsIgnoreCase("l")) {
 				if (rotation == 0) {
 
@@ -1047,21 +1069,19 @@ public class GameObject {
 						for (int z = 0; z < 4; z++) {
 							if (xPos[z] > -1 && xPos[z] < 10 && yPos[z] < 26) {
 								if (grid.grid[xPos[z]][yPos[z]]) {
-									yPos[0]--;
 									xPos[1]--;
-									yPos[1]--;
-									xPos[3] += 2;
-									yPos[3]++;
+									yPos[1]++;
+									xPos[3] -= 2;
+									yPos[3] += 2;
 									rotation--;
 									canRotate = false;
 									break;
 								}
 							} else {
-								yPos[0]--;
 								xPos[1]--;
-								yPos[1]--;
-								xPos[3] += 2;
-								yPos[3]++;
+								yPos[1]++;
+								xPos[3] -= 2;
+								yPos[3] += 2;
 								rotation--;
 								canRotate = false;
 								break;

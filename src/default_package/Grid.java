@@ -28,7 +28,7 @@ public class Grid {
 		g.drawString("GAME OVER", MainClass.framewidth/2-195, 350);
 		g.setFont(font);
 		g.drawString("Press Enter to Restart", MainClass.framewidth/2-130, 400);
-		g.drawString("Your Score was " + Score, MainClass.framewidth/2-100, 450);
+		g.drawString("Your Score was " + Score, MainClass.framewidth/2-130, 450);
 	}
 	public void reset() {
 		for(int i = 0; i < width; i ++) {

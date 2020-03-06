@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	long updateTimer = 0;
 	int TimeToUpdate = 1;
 	int streak = 0;
+	int song = 0;
 	int audiotest = 0;
 	boolean tetrisstreak;
 	boolean blocker = false;
@@ -84,7 +85,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString("Press Space to Play", MainClass.framewidth / 2 - 115, 500);
 			g.drawString("Press Enter for Instructions", MainClass.framewidth / 2 - 155, 550);
 		} else if (GameState.equalsIgnoreCase("paused")) {
-			grid.update(g, null, Hold, Next, font, Score, Level, 5 - clears, tetrisstreak, streakcolor);
+			grid.update(g, null, Hold, Next, font, Score, Level, 5 + 2*(Level-1) - clears, tetrisstreak, streakcolor);
 			g.setFont(titleFont);
 			g.setColor(Color.BLUE);
 			g.fillRect(MainClass.framewidth / 2 - 155, MainClass.frameheight / 2 - 45, 310, 90);
@@ -156,7 +157,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				 * MainClass.frameheight); }
 				 */
 			} else {
-				if (clears >= 5) {
+				if (clears >= 5 + 2*(Level-1)) {
 					Level++;
 					clears = 0;
 					t.stop();
@@ -164,7 +165,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 					t.start();
 				}
 
-				grid.update(g, object, Hold, Next, font, Score, Level, 5 - clears, tetrisstreak, streakcolor);
+				grid.update(g, object, Hold, Next, font, Score, Level, 5 + 2*(Level-1) - clears, tetrisstreak, streakcolor);
 
 			}
 		}
@@ -313,7 +314,24 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				repaint();
 			}
 		} else if (e.getSource() == z) {
+			if(song == 1) {
+				song = 0;
+			}
+			else {
+			song++;
+			}
+			if(song == 0) {
+			Timer z = new Timer(84000, this);
 			Audio.play(84);
+			z.restart();
+			}
+			else if(song == 1) {
+				Timer z = new Timer(80000, this);
+				Audio = new Audio("tetris-gameboy-03.mp3");
+				Audio.play(80);
+				z.restart();
+			}
+			
 			System.out.println("loop Audio");
 		}
 	}
@@ -370,16 +388,14 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				if (canHold == true) {
 					for (int i = 0; i < 4; i++)
 						object.grid.grid[object.xPos[i]][object.yPos[i]] = false;
-					if (Next.equalsIgnoreCase("blank")) {
-						Next = NewBlock();
-					}
+
 					if (Hold.equalsIgnoreCase("blank")) {
 						Hold = object.currentState;
 						Hold2 = object.currentState;
+						object.currentState = Next;
 						Next = NewBlock();
 						SetBlock();
 					} else {
-						Hold2 = Hold;
 						Hold = object.currentState;
 						object.currentState = Hold2;
 						Hold2 = Hold;
