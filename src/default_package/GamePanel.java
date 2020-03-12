@@ -21,7 +21,7 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 	long updateTimer = 0;
 	int TimeToUpdate = 1;
 	int streak = 0;
-	int song = 0;
+	int song = 1;
 	int audiotest = 0;
 	boolean tetrisstreak;
 	boolean blocker = false;
@@ -180,7 +180,6 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				grid.clear(i);
 				clears++;
 				streak++;
-				System.out.println(streak);
 			}
 		}
 		if (streak > 0) {
@@ -314,25 +313,21 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				repaint();
 			}
 		} else if (e.getSource() == z) {
-			if(song == 1) {
-				song = 0;
-			}
-			else {
-			song++;
-			}
+			Audio.stop();
 			if(song == 0) {
-			Timer z = new Timer(84000, this);
+				song++;
+			z = new Timer(84000, this);
+			Audio = new Audio("Tetris.mp3");
 			Audio.play(84);
 			z.restart();
 			}
 			else if(song == 1) {
-				Timer z = new Timer(80000, this);
+				song = 0;
+				z = new Timer(77000, this);
 				Audio = new Audio("tetris-gameboy-03.mp3");
 				Audio.play(80);
 				z.restart();
 			}
-			
-			System.out.println("loop Audio");
 		}
 	}
 
@@ -408,10 +403,15 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 			}
 			repaint();
 		} else if (GameState.equalsIgnoreCase("paused")) {
-			System.out.println("testtest");
 			z.restart();
 			t.start();
-			Audio.play(84);
+			if(song == 0) {
+				Audio.play(80);
+			}
+			else {
+				Audio.play(84);
+			}
+
 			GameState = "Game";
 		} else {
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -437,13 +437,11 @@ public class GamePanel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_ENTER && GameState.equalsIgnoreCase("Title")) {
-				System.out.println("test");
 				GameState = "Controls";
 				repaint();
 			}
 			if (GameState.equalsIgnoreCase("Title") && e.getKeyCode() == KeyEvent.VK_ENTER) {
 				GameState.equalsIgnoreCase("Controls");
-				System.out.println("controls");
 			}
 		}
 

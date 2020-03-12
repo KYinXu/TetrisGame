@@ -414,8 +414,6 @@ public class GameObject {
 		}
 		if (direction.equalsIgnoreCase("r")) {
 			update("check");
-			System.out.println(canRotate);
-			System.out.println("testeets");
 			if (currentState.equalsIgnoreCase("l")) {
 				if (rotation == 0) {
 
