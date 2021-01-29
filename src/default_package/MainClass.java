@@ -21,7 +21,7 @@ public class MainClass {
 
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setTitle("Tetris");
+		frame.setTitle("Winter Game");
 		frame.setBackground(Color.BLACK);
 		panel = new GamePanel();
 		panel.setPreferredSize(new Dimension(framewidth, frameheight));
